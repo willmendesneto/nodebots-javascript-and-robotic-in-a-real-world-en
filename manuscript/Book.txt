@@ -1,2 +1,7 @@
+sobre-o-autor.md
 introducao.md
 nodebots-e-microcontroladores.md
+primeiro-projeto-build-checker.md
+segundo-projeto-fire-alarm.md
+dando-suporte-ao-seu-codigo-em-varios-sistemas-operacionais.md
+proximos-passos.md
