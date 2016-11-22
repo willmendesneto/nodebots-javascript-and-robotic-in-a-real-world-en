@@ -73,7 +73,7 @@ Wget:
 $ wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.6/install.sh | bash
 ```
 
-OBS: Pacotes como CURL e WGET podem não estar instalados em seu sistema operacional por padrão. Caso precise, verifique a melhor forma de instalação para o seu sistema operacional ou acesse o repositório do NVM no Github para verificar os passos de instalação ou possíveis soluções de problema.
+> Pacotes como CURL e WGET podem não estar instalados em seu sistema operacional por padrão. Caso precise, verifique a melhor forma de instalação para o seu sistema operacional ou acesse o repositório do NVM no Github para verificar os passos de instalação ou possíveis soluções de problema.
 
 
 
@@ -135,7 +135,7 @@ Com ele você pode adicionar pacotes em sua aplicação a partir do comando npm 
 - localmente como uma dependência do seu projeto: o pacote será instalado localmente e acessível na pasta node_modules e as informações do pacote serão salvas na chave dependencies do seu arquivo JSON. Para usar esta opção adicione a flag --save;
 - globalmente: o pacote será instalado com escopo global e acessível em qualquer outro projeto. Para usar esta opção adicione a flag --global;
 
-OBS: Pacotes salvos como dependência de desenvolvimento e globalmente não serão utilizados quando você publicar o seu projeto, então utilize estas opções com cuidado.
+> Pacotes salvos como dependência de desenvolvimento e globalmente não serão utilizados quando você publicar o seu projeto, então utilize estas opções com cuidado.
 
 Para o nosso projeto inicial vamos instalar o framework Johnny-Five como uma das dependências de desenvolvimento, rodando o comando:
 
@@ -167,7 +167,7 @@ Outra novidade foi a adição das informações do nosso pacote no bloco de cont
 }
 ```
 
-OBS: O npm possui vários outros comandos padrão que podemos utilizar em nossa aplicação. Caso queira saber mais sobre estes comandos, acesse a página sobre estes comandos na documentação oficial do NPM.
+> O npm possui vários outros comandos padrão que podemos utilizar em nossa aplicação. Caso queira saber mais sobre estes comandos, acesse a página sobre estes comandos na documentação oficial do NPM.
 
 
 #### Adicionando comandos NPM
@@ -232,7 +232,7 @@ Existe uma página na Wiki do projeto Arduino com soluções para os problemas m
 
 #### Setup inicial do Arduino
 
-OBS: É possível codificar utilizando o seu editor ou IDE preferido e iniciar esta etapa utilizando o pacote interchange. O intuito do conteúdo a seguir é facilitar o setup do arduino para desenvolvedores que estão tendo o primeiro contato com a plataforma Arduino.
+> É possível codificar utilizando o seu editor ou IDE preferido e iniciar esta etapa utilizando o pacote interchange. O intuito do conteúdo a seguir é facilitar o setup do arduino para desenvolvedores que estão tendo o primeiro contato com a plataforma Arduino.
 
 
 Feita a instalação do Arduino IDE, vamos agora acessar o programa e verificar o seu funcionamento. Primeiramente percebemos que o Arduino IDE possui alguns exemplos integrados como um mediador e facilitador para quem nunca teve contato com a plataforma. Para verificar a lista completa de exemplos basta acessar a opção File > Examples.
