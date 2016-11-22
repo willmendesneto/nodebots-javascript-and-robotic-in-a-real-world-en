@@ -179,8 +179,8 @@ var CI_CCTRACKER_URL = [
   'cctray.xml'
 ].join('/');
 ```
-Vamos explicar um pouco sobre o callback do RequestJS. Ele retorna 3 parâmetros:
 
+Vamos explicar um pouco sobre o callback do RequestJS. Ele retorna 3 parâmetros:
 
 - `error`: um objeto com as informações do erro que aconteceu. Caso a requisição não retorne nenhum erro ele possui o valor padrão `null`;
 - `response`: objeto com as informações do response da requisição;
@@ -217,7 +217,7 @@ if(body.indexOf('Failure') !== -1) {
 
 Com a requisição criada, vamos somente criar um intervalo entre cada requisição, utilizando um simples setInterval. Vamos utilizar um tempo de 500 milisegundos para validação do código, mas este valor pode ser alterado para o que for ideal ao seu caso.
 
-``javascript
+```javascript
 setInterval(function(){
   request(CI_CCTRACKER_URL, function(error, response, body) {
     ..
