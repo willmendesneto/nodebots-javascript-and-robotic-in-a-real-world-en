@@ -1,17 +1,17 @@
-## Segundo projeto: Alarme de incêndio
+# Segundo projeto: Alarme de incêndio
 
 O nosso segundo projeto de exemplo será o de um alarme de incêndio inteligente. O nosso alarme de incêndio verificará pela temperatura e, em caso de incêndio, acionará o alarme sonoro e enviará um SMS para o celular cadastrado.
 
 Um exemplo simples, mas que mostra alguns pontos de integração interessantes, como integração com API's, leitura de dados de um sensor de temperatura e integração com o sensor sonoro Piezo.
 
 
-### Anatomia de um alarme de incêndio
+## Anatomia de um alarme de incêndio
 
 
 O projeto foi baseado em um sistema domiciliar simples de alarme de incêndio. Por padrão sistemas deste tipo fazem uma verificação de tempos em tempos e ativam o alarme de algum padrão anormal de temperatura é encontrado.
 
 
-### Material necessário
+## Material necessário
 
 Para este projeto utilizaremos:
 
@@ -36,7 +36,7 @@ A imagem a seguir ilustra a montagem dos componentes integrados com o Arduino.
 
 ![Integração dos componentes utilizados no Fire Alarm](images/image37.png)
 
-### Controlando o sensor de chamas
+## Controlando o sensor de chamas
 
 Com o sensor LM35 conectado à placa Arduino, vamos agora fazer a leitura da informação da temperatura do ambiente. Para isso utilizaremos a classe Thermometer do Johnny five. Ao instanciarmos um novo objeto Thermometer, devemos nos atentar a alguns parâmetros:
 
@@ -79,7 +79,7 @@ E este será o resultado do nosso código.
 O código é bastante simples, como podem perceber. No próximo tópico vamos pensar um pouco mais sobre a nossa arquitetura e como evoluir este código para algo mais fácil de manter.
 
 
-### Evoluindo o nosso código inicial
+## Evoluindo o nosso código inicial
 
 O nosso código inicial está funcional, mas evoluir este código para os próximos passos é algo complexo. Para facilitarmos as próximas etapas do nosso projeto, vamos fazer algumas adaptações no nosso código inicial.
 
@@ -151,7 +151,7 @@ $ npm start
 Com essas alterações temos um código de fácil manutenção e muito mais legibilidade para ser utilizado na nossa aplicação. Claro que esta é uma das várias abordagens que podem ser utilizadas no seu projeto, mas o foco deste tópico é passar a idéia de sempre pensar em como melhorar o nosso projeto.
 
 
-### Integrando com o Piezo para aviso sonoro
+## Integrando com o Piezo para aviso sonoro
 
 Twilio é um serviço que permite aos desenvolvedores incorporar voz, *VoIP* e mensagens SMS em aplicativos a partir de uma API RESTful que fornece os recursos de voz e SMS para aplicativos.
 
@@ -263,7 +263,7 @@ module.exports = FireAlarm;
 Com isto temos o primeiro feedback para os usuários da nossa aplicação. A próxima etapa será adicionar a funcionalidade de envio de SMS utilizando a API do Twilio.
 
 
-### Enviando SMS para o seu celular usando o Twilio
+## Enviando SMS para o seu celular usando o Twilio
 
 Twilio é um serviço que permite aos desenvolvedores incorporar voz, VoIP e mensagens SMS em aplicativos a partir de uma API RESTful que fornece os recursos de voz e SMS para aplicativos. As bibliotecas de cliente estão disponíveis em vários idiomas e, claro, possuem um cliente para o NodeJS chamado [twilio-node](https://twilio.github.io/twilio-node).
 
@@ -356,7 +356,7 @@ Com isto vimos a integração completa do nosso Fire Alarm. Claro que este é o 
 Mas e quanto aos testes unitários? Sabemos que está funcionando, mas temos que ter certeza de que o código tem um nível aceitável de qualidade até mesmo para evoluirmos o nosso projeto e adicionar novas funcionalidades. Vamos agora criar os nossos testes unitários.
 
 
-#### Criando testes unitários para o Fire Alarm
+### Criando testes unitários para o Fire Alarm
 
 
 Como comentado no conteúdo "Criando testes unitários para o build checker", teste unitário é apenas uma das várias maneiras de testar o seu software e ter uma confiabilidade no produto final com algumas validações automáticas antes de efetuarmos o deploy do nosso projeto para produção.

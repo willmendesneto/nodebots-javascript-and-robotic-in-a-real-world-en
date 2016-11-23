@@ -1,6 +1,6 @@
-## Nodebots e microcontroladores
+# Nodebots e microcontroladores
 
-### O que são nodebots?
+## O que são nodebots?
 
 NodeBots é um termo utilizado para definir o conceito de controle sobre open hardware, um hardware eletrônico projetado e oferecido da mesma maneira e com as mesmas licenças que um software de código livre, sensores e outros componentes eletrônicos utilizando NodeJS. E você pode utilizar vários elementos: desde sensores, [servo motores](https://pt.wikipedia.org/wiki/Servomotor), rodas, detectores de movimento, câmeras, displays de LED, reprodutores de áudio e muito mais.
 
@@ -15,7 +15,7 @@ Rick Waldron foi um pouco mais além. Usando a biblioteca Firmata como base, ele
 O framework Johnny-Five torna o controle de vários componentes, desde LEDs até vários outros tipos de sensores de uma maneira simples e prática. Isto é o que muitos NodeBots agora usam para atingir alguns feitos impressionantes!
 
 
-### Microcontroladores
+## Microcontroladores
 
 Quando falamos de nodebots, estamos indiretamente mencionando microcontroladores. Um microcontrolador é um computador menor e mais simples. Ele possui uma placa programável simples de circuito físico (citaremos como pinos, entradas, etc) que pode detectar várias entradas e saídas.
 
@@ -29,14 +29,14 @@ Um Arduino é um dos vários tipos de microcontroladores, sendo um dos mais comu
 
 Neste livro utilizarei o [Arduino UNO](https://www.arduino.cc/en/Main/ArduinoBoardUno) nos exemplos, mas sinta-se livre para utilizar o microcontrolador de sua escolha.
 
-### NodeJS
+## NodeJS
 
 NodeJS é um *runtime* de execução JavaScript construído com base na *engine* Javascript V8 do Chrome, possibilitando a utilização do Javascript em outros ambientes além da web e com um aspecto importante que é a utilização de um modelo não-bloqueante de entrada e saída de dados orientado a eventos. Possui o objetivo de ajudar programadores na criação de aplicações de alta escalabilidade como servidores web com conexões simultâneas, scripts assíncronos e até mesmo a integração com componentes eletrônicos que é o nosso caso.
 
 Foi criado por Ryan Dahl em 2009, e seu desenvolvimento é mantido pela comunidade e pela Node Foundation, da qual empresas como IBM, Google, Red Hat, Joyent, dentre outras.
 
 
-#### Instalando no Windows
+### Instalando no Windows
 
 Instalar o NodeJS no Windows é bem simples. Uma das maneiras é visitar o [website oficial do projeto](https://nodejs.org/en/download/) e baixar o instalador no formato, clicar nas opções de instalação e finalizar a instalação. Quando finalizar abra o seu prompt de comando acessando pelo prompt de comando do Windows a partir do comando "Executar > cmd" e, após iniciar o programa, digite o seguinte comando:
 
@@ -47,7 +47,7 @@ $ node -v
 Ele deve exibir no prompt a versão atual do NodeJS no seu terminal. Com isso finalizamos a instalação no ambiente Windows.
 
 
-#### Instalando no Linux e Mac OS X
+### Instalando no Linux e Mac OS X
 
 Para os sistemas Linux e Mac OS X você pode utilizar vários formatos como efetuar o download do node no site (como fizemos para a instalação no Windows), via gerenciador de pacotes do próprio sistema operacional, mas uma forma de unificar o formato de instalação para as plataformas é utilizar o [NVM - Node Version Manager](https://github.com/creationix/nvm) que é um gerenciador de versões do NodeJS baseado em bash script.
 
@@ -74,7 +74,7 @@ Logo a seguir, você deve abrir o seu arquivo que guarda a configuração padrã
 
 ```bash
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" ## This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 ```
 
 Com isso, assim que você recarregar o seu terminal o NVM estará disponível. Agora basta instalar a versão do NodeJS de sua preferência. Neste livro utilizaremos a versão 5.3.0.
@@ -98,9 +98,9 @@ O resultado deve ser `v5.3.0`. Se este foi o retorno do seu comando, está tudo 
 Foi criado um arquivo com os comandos contidos neste tópico para a instalação do NVM e o Node com a versão utilizada neste livro. Caso queira utilizá-lo, por favor faça o [download do arquivo nvm-install.sh](https://gist.github.com/willmendesneto/4c951413bacbb8850837a53bcdada30d).
 
 
-### Gerenciando dependências com o NPM
+## Gerenciando dependências com o NPM
 
-#### Iniciando o seu projeto e conhecendo o arquivo package.json
+### Iniciando o seu projeto e conhecendo o arquivo package.json
 
 Como primeiro passo vamos criar a pasta "hello-world" e adicionaremos informações iniciais para nosso projeto. Para isso usaremos o comando [npm init](https://docs.npmjs.com/cli/init).
 
@@ -117,7 +117,7 @@ Pode ficar tranquilo que nenhuma delas é obrigatória. Caso não saiba ou não 
 
 ![output do comando](images/image25.png)
 
-#### Adicionando pacotes
+### Adicionando pacotes
 
 Agora que já temos o nosso [package.json](https://docs.npmjs.com/files/package.json) com todas as configurações básicas do nosso repositório, vamos instalar o nosso primeiro pacote para integrarmos com o nosso projeto!
 
@@ -169,7 +169,7 @@ Outra novidade foi a adição das informações do nosso pacote no bloco de cont
 > O npm possui vários outros comandos padrão que podemos utilizar em nossa aplicação. Caso queira saber mais sobre estes comandos, acesse a página sobre estes comandos na [documentação oficial do NPM](https://docs.npmjs.com/misc/scripts).
 
 
-#### Adicionando comandos NPM
+### Adicionando comandos NPM
 
 
 O NPM é uma ferramenta muito interessante e bastante flexível, com a possibilidade de criar de comandos específicos executados a partir do `npm run seu-comando`.
@@ -202,9 +202,9 @@ Para rodarmos o comando, basta acessarmos o nosso terminal ou prompt de comando 
 
 ![](images/image38.png)
 
-### Arduino
+## Arduino
 
-#### Arduino...ardu-o-que?
+### Arduino...ardu-o-que?
 
 
 Arduino é uma plataforma open-source baseada em um hardware de fácil utilização e integração com sensores a partir do software. Por tratar-se de uma plataforma totalmente maleável e aberta qualquer um pode utilizá-lo em projetos dos mais diversos como simples verificações de dados recebidos por sensores de luz, temperatura, umidade ou até mesmo automação domiciliar.
@@ -216,14 +216,14 @@ Dentre as suas vantagens encontramos:
 - Simples: Não exige de quem vai manipulá-lo um vasto conhecimento em eletrônica. Basta ter uma noção básica de desenvolvimento e você já pode fazer coisas bem bacanas;
 
 
-#### Sobre Open source hardware
+### Sobre Open source hardware
 
 `Open source hardware` é um hardware eletrônico com a mesma cultura de um software de código livre. Este termo utilizado pela primeira vez com o intuito de refletir a ideia de informação aberta e pública quanto ao hardware, como diagramas, estruturas de produtos e dados de `layout` de uma placa de circuito impresso.
 
 Com o crescimento dos dispositivos lógicos programáveis, o compartilhamento dos esquemas lógicos de forma aberta também se espalhou. Neste caso as especificações do hardware estão disponíveis para todos. Ou seja, você pode criar ou evoluir o seu hardware a partir daquele conteúdo sem nenhum problema.
 
 
-#### Instalando Arduino IDE
+### Instalando Arduino IDE
 
 A instalação do Arduino IDE é bastante simples. Basta acessarmos o [site oficial do projeto](https://www.arduino.cc/en/Main/Software) e na página principal podemos encontrar todas as opções de download por sistema operacional. Verifique qual o seu sistema operacional e faça o download do instalador.
 
@@ -231,7 +231,7 @@ A instalação do Arduino IDE é bastante simples. Basta acessarmos o [site ofic
 
 Existe [uma página na Wiki do projeto Arduino com soluções para os problemas mais comuns](https://github.com/arduino/Arduino/wiki/Building-Arduino), caso vocês tenham algum tipo de inconveniente com a instalação e primeiro setup do Arduino IDE.
 
-#### Setup inicial do Arduino
+### Setup inicial do Arduino
 
 > É possível codificar utilizando o seu editor ou IDE preferido e iniciar esta etapa utilizando o pacote [interchange](https://github.com/johnny-five-io/nodebots-interchange). O intuito do conteúdo a seguir é facilitar o setup do arduino para desenvolvedores que estão tendo o primeiro contato com a plataforma Arduino.
 
@@ -250,7 +250,7 @@ Vamos agora conectar a nossa placa Arduino ao nosso sistema operacional. Como j�
 O nome aparecerá com o prefixo "/dev/cu." e possuirá o nome do Arduino, facilitando a integração. Escolha a porta na qual o seu Arduino está conectado e pronto: a conexão foi efetuada com sucesso.
 
 
-### Firmata
+## Firmata
 
 Firmata é um protocolo para a comunicação com os microcontroladores de software em um computador (ou smartphone / tablet, etc). O protocolo pode ser implementado no firmware de qualquer arquitetura microcontrolador, bem como em qualquer pacote de software de computador.
 
@@ -263,14 +263,14 @@ Com o Arduino plugado no nosso computador rodamos o código a seguir e aguardamo
 ![Tudo ok. Firmata rodando](images/image18.png)
 
 
-### Johnny Five
+## Johnny Five
 
 Johnny-Five é um framework open source que permite que você controle um micro-controladores e componentes utilizando funções muito similares as que seriam utilizadas se você estivesse programando apenas para a plataforma Arduino em si, porém utilizando JavaScript e implementando o protocolo Firmata para comunicação com o software no computador host.
 
 Isso permite que você escreva um `firmware` personalizado sem ter que criar o seu próprio protocolo e objetos para o ambiente de programação que você está usando. Resumindo, Johnny-Five é um pacote node que irá permitir programar micro controladores utilizando JavaScript!
 
 
-#### Adicionando johnny Five no projeto
+### Adicionando johnny Five no projeto
 
 
 Como todo bom pacote NodeJS, adicionar o Johnny-five no projeto é uma tarefa bem simples. Para isto vamos utilizar o comando que já vimos anteriormente, o `npm install`, e instalaremos o johnny five localmente, salvando como dependência de desenvolvimento do projeto.
@@ -301,7 +301,7 @@ Podemos verificar também que o nosso package.json foi alterado. Nele foram adic
 ```
 
 
-#### Criando um Hello World
+### Criando um Hello World
 
 Agora que todo o setup do nosso projeto foi realizado, vamos criar o nosso código de exemplo, e nada melhor do que o bom e velho "Hello World", dando-lhe boas vindas ao mundo Nodebots.
 

@@ -1,11 +1,11 @@
-## Dando suporte ao seu código em vários sistemas operacionais
+# Dando suporte ao seu código em vários sistemas operacionais
 
 Nesta etapa do livro iremos então validar e verificar a cobertura de testes no nosso projeto em diferentes sistemas operacionais, além de habilitarmos diferentes serviços web para melhorias de workflow, como ferramentas de integração contínua e cobertura de código.
 
 Esta etapa é muito importante, pois estas ferramentas nos auxiliam no processo de segurança do nosso código, checando diferentes critérios de aceitação da nossa aplicação de maneira automatizada.
 
 
-### Adicionando servidores de integração contínua ao seu projeto
+## Adicionando servidores de integração contínua ao seu projeto
 
 
 Como todo projeto de qualidade, o nosso projeto Nodebots vai se preocupar em alguns outros aspectos, como automatização da suíte de testes, build e outras tarefas relevantes ao nosso projeto.
@@ -14,7 +14,7 @@ Como todo projeto de qualidade, o nosso projeto Nodebots vai se preocupar em alg
 Para isso vamos contar com o auxílio de um servidor de integração contínua. Existem vários no mercado, sendo gratuitos ou pagos, e nesta etapa do livro vamos conhecer um pouco mais do funcionamento e configuração de dois deles: Travis-CI e Appveyor.
 
 
-#### Travis-CI: checando seu código no  Linux e OSX
+### Travis-CI: checando seu código no  Linux e OSX
 
 Sabendo que atualmente os sistemas operacionais mais utilizados são Unix/Linux, Windows e OSX vamos criar verificações para cada um deles e para isto entra em cena o Travis-CI.
 
@@ -120,7 +120,7 @@ Com a integração testada, vamos então colocar o badge do travis-ci no nosso a
 Com isto terminamos a nossa integração com o servidor de integração contínua Travis-CI e temos toda a nossa suite de testes rodando nos sistemas Linux e OSX. Nesta próxima etapa vamos configurar as mesmas tarefas, mas para serem verificadas no sistema operacional Windows, utilizando outro servidor de integração contínua chamado Appveyor.
 
 
-#### Appveyor: checando seu código no Windows
+### Appveyor: checando seu código no Windows
 
 Muitos projetos são desenvolvidos em sistemas operacionais baseados no Unix por padrão e adicionar suporte ao Windows era considerado um grande um desafio para alguns, pois montar um ambiente de teste do Windows não era algo trivial, exigindo a compra de licenças de software.
 
@@ -182,7 +182,7 @@ O campo test_script terá a lista dos nossos comandos a serem executados no mome
 ```
 ...
 test_script:
-  # Run the test
+   Run the test
   - cmd: node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- -R dot
 ```
 
@@ -198,7 +198,7 @@ matrix:
 O conteúdo final do nosso arquivo `appveyor.yml` com todas as alterações será o seguinte:
 
 ```
-# Fix line endings on Windows
+ Fix line endings on Windows
 init:
   - git config --global core.autocrlf true
 environment:
@@ -212,7 +212,7 @@ install:
   - npm cache clean
   - npm install
 test_script:
-  # Run the test
+   Run the test
   - cmd: node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- -R dot
 build: off
 matrix:
@@ -243,12 +243,12 @@ Por exemplo, baseado no repositório de exemplo, o nosso badge terá o seguinte 
 Como vocês puderam perceber adicionar suporte a vários sistemas operacionais e plataformas é uma tarefa bastante simples com o Appveyor. Os próximos passos do livro serão mais voltados ao quesito de melhorias na automação da checagem da nossa cobertura de código.
 
 
-### Code coverage para o seu código
+## Code coverage para o seu código
 
 Finalizada a comunicação do nosso repositório com os serviços de integração contínua, vamos agora adicionar novas ferramentas. Desta vez o foco é a cobertura de nosso código, checando se tudo está sendo validado corretamente de maneira automatizada antes mesmo de continuarmos com as outras etapas de desenvolvimento do nosso Nodebots.
 
 
-#### Checando a cobertura de código do nosso projeto: Conhecendo o Istanbul
+### Checando a cobertura de código do nosso projeto: Conhecendo o Istanbul
 
 
 O [istanbul](http://gotwarlost.github.io/istanbul) é um pacote NodeJS para verificar a cobertura de código no nosso repositório utilizando vários parâmetros, como cobertura por linha de código, funções, declarações e [engenharia reversa](https://pt.wikipedia.org/wiki/Engenharia_reversa).
@@ -280,7 +280,7 @@ O retorno será o mesmo da imagem abaixo. Podem reparar que agora temos algumas 
 Percebam que agora temos uma nova pasta chamada coverage com alguns arquivos e todas estas informações listadas na nossa linha de comando. Utilizaremos elas nos próximos passos para a integração com o serviço Coveralls.
 
 
-#### Integrando o servidor de integração contínua com o coveralls
+### Integrando o servidor de integração contínua com o coveralls
 
 Com as informações de cobertura de código coletadas, vamos então integrar um novo serviço chamado [coveralls](https://coveralls.io/). Ele será utilizado para integrar os dados de cobertura de código e deixar ele visível, adicionando um badge no nosso `README.md`.
 
@@ -334,7 +334,7 @@ Após adicionarmos e salvarmos este código, o resultado final a ser renderizado
 E com isto concluímos a nossa integração com o serviço do coveralls. Este é só um exemplo simples de uma das várias funcionalidades deste serviço e recomendo fortemente que dêem uma lida na [documentação do coveralls](https://coveralls.zendesk.com/hc/en-us) para que vocês tenham uma maior sobre este serviço.
 
 
-#### Verificando complexidade do código com o PlatoJS
+### Verificando complexidade do código com o PlatoJS
 
 PlatoJS é um pacote NodeJS que nos ajudará em algumas validações do nosso código nodebots. Ele cria um relatório utilizando alguns dados gerados via análise estática do código do nosso projeto que nos mostra algumas informações como complexidade do código, dificuldade de manutenção, linhas de código, possiveis erros de implementação, dentre outros dados relevantes.
 

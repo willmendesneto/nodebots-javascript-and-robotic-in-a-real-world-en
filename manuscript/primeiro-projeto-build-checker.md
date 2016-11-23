@@ -1,27 +1,27 @@
-## Primeiro projeto: Build Checker
+# Primeiro projeto: Build Checker
 
-### O que é um build pipeline
+## O que é um build pipeline
 
 Em algumas apresentações percebi que este termo não é conhecido por muitas pessoas, mesmo as que são mais familiarizadas com abordagens como integração contínua e entrega contínua.
 
 Build pipeline é um conceito que foi construído em meados de 2005 e é baseado na ideia de paralelização de tarefas, separando cada etapa em pequenos critérios de aceitação para a aplicação. Vale lembrar que esses passos podem automáticos ou manuais.
 
 
-### Criando um Build Checker
+## Criando um Build Checker
 
 Sempre que começamos o contato com o Arduino, por exemplo, fazemos o exemplo de piscas as leds, comumente conhecido como blink.
 
 Neste exemplo mostrarei uma forma mais atrativa de abordar este exemplo para o nosso cotidiano, baseado em modelos como Hubot e Retaliation para checarmos a nossa build pipeline e averiguarmos a saúde de nossa aplicação utilizando Arduino + NodeJS + Johnny-Five em uma introdução a NodeBots.
 
 
-### Anatomia de um verificador de build
+## Anatomia de um verificador de build
 
 O projeto foi baseado no [CCmenu](http://ccmenu.org/), projeto criado pelo ThoughtWorker Erik Doernenburg para checar e mostrar o status de um determinado projeto em um servidor de integração contínua.
 
 No nosso caso passamos a idéia para algo físico, utilizando open hardware e NodeJS. Nossa aplicação consumirá um XML com as informações retornadas pelo Travis-CI. A partir destes dados checamos o estado atual da aplicação e o retornaremos utilizando alguns artifícios como Arduino e LEDs para avisar ao nosso time de que algo de errado aconteceu com o nosso build e devemos corrigir o quanto antes.
 
 
-### Material necessário
+## Material necessário
 
 Para este projeto utilizaremos:
 
@@ -43,7 +43,7 @@ A imagem a seguir ilustra a montagem dos componentes com o arduino.
 
 ![Conectando o Arduino: portas e LEDS](images/image12.png)
 
-#### Controlando a LED
+### Controlando a LED
 
 
 Conhecendo os componentes que utilizaremos, vamos agora ao nosso código inicial que vai controlar a nossa LED. Primeiramente criaremos a pasta `src`, onde ficará o código de nossa aplicação.
@@ -111,7 +111,7 @@ Após este comando o nosso prompt/linha de comando está mostrando que o comando
 
 Bastante simples, não é mesmo? No próximo tópico vamos pensar um pouco mais sobre a nossa arquitetura.
 
-### Criando a requisição das informações de build no CI/CD
+## Criando a requisição das informações de build no CI/CD
 
 Já temos a nossa abstração do build checker, vamos agora adicionar a última funcionalidade que é a da leitura das informações de build no nosso servidor de entrega contínua e/ou servidor de integração contínua.
 
@@ -277,7 +277,7 @@ board.on('ready', function() {
 Ele consultará os dados em um intervalo previamente configurado e verifica o estado atual do build, baseado nas informações de todas as pipelines. Caso não haja a palavra *"Failure"* no response da requisição, algo de errado aconteceu e o nosso *build checker* irá acender a luz vermelha, caso contrário a luz verde continua acesa, sinalizando que está tudo ok.
 
 
-### Ajustando a arquitetura de nossa aplicação
+## Ajustando a arquitetura de nossa aplicação
 
 Agora que finalizamos a primeira etapa e vimos o nosso funcionando com os nossos componentes, vamos pensar em melhorar a nossa arquitetura.
 
@@ -382,7 +382,7 @@ board.on('ready', function() {
 Finalizando esta separação de conceitos, melhoramos a legibilidade, manutenibilidade e várias outra variantes de nossa aplicação. Vale ressaltar que esta é uma boa prática e que, ao decorrer do livro, sempre estaremos pensando em melhorias do nosso código final.
 
 
-### Criando testes unitários para o build checker
+## Criando testes unitários para o build checker
 
 
 Desta vez algo simples, mas sem uma boa informação sobre ele é como adicionar testes de unidade em aplicativos Nodebots. Teste unitário não é algo novo, mas você não encontra conteúdo sobre este tema em Arduino, robôs e aplicativos de hardware aberto facilmente, por isto abordaremos um pouco sobre este tópico neste livro.

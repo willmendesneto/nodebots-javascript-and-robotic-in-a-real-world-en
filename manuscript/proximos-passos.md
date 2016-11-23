@@ -1,4 +1,4 @@
-## Próximos passos
+# Próximos passos
 
 Finalizando agora o conteúdo deste livro com alguns exemplos bastante didáticos já vemos o poder do Javascript aliado a robótica em nossas aplicações. Estes são exemplos que podem ser incorporados ao nosso cotidiano e ensinamentos para a execução de várias outras idéias que surgirão.
 
