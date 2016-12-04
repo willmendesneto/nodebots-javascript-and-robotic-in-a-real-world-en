@@ -1,3 +1,3 @@
-# Sobre o autor
+# About the author
 
-GDE (Google Developer Expert) AngularJS, GDG Salvador organizer, apaixonado por tecnologia e ativo em comunidades com foco em desenvolvimento web, incluindo AngularJS, JavaScript, HTML5, CSS3, workflow, web performance, segurança e *Internet of things*. Participa na organização de eventos, palestra em conferências no Brasil e em outros países e contribui para poucos projetos de código aberto.
+GDE (Google Developer Expert) AngularJS, GDG Salvador organizer, passionate about technology and active in communities focused on web development, including AngularJS, JavaScript, HTML5, CSS3, workflow, web performance, security and *Internet of things*. Participates in the organization of events, lectures at conferences in Brazil and in other countries and contributes to few open source projects.

@@ -1,2 +1,0 @@
-introducao.md
-dando-suporte-ao-seu-codigo-em-varios-sistemas-operacionais.md
