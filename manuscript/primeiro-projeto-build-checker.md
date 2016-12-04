@@ -11,7 +11,7 @@ Build pipeline é um conceito que foi construído em meados de 2005 e é baseado
 
 Sempre que começamos o contato com o Arduino, por exemplo, fazemos o exemplo de piscas as leds, comumente conhecido como blink.
 
-Neste exemplo mostrarei uma forma mais atrativa de abordar este exemplo para o nosso cotidiano, baseado em modelos como Hubot e Retaliation para checarmos a nossa build pipeline e averiguarmos a saúde de nossa aplicação utilizando Arduino + NodeJS + Johnny-Five em uma introdução a NodeBots.
+Neste exemplo mostrarei uma forma mais atrativa de abordar este exemplo para o nosso cotidiano, baseado em modelos como [Hubot](https://hubot.github.com/) e [Retaliation](https://github.com/codedance/Retaliation) para checarmos a nossa build pipeline e averiguarmos a saúde de nossa aplicação utilizando Arduino + NodeJS + Johnny-Five em uma introdução a NodeBots.
 
 
 ## Anatomia de um verificador de build
@@ -42,6 +42,7 @@ A imagem a seguir ilustra a montagem dos componentes com o arduino.
 
 
 ![Conectando o Arduino: portas e LEDS](images/image12.png)
+
 
 ### Controlando a LED
 
@@ -110,6 +111,7 @@ $ node src/index.js
 Após este comando o nosso prompt/linha de comando está mostrando que o comando rodou com sucesso e o resultado será que as nossas duas LEDs estarão piscando.
 
 Bastante simples, não é mesmo? No próximo tópico vamos pensar um pouco mais sobre a nossa arquitetura.
+
 
 ## Criando a requisição das informações de build no CI/CD
 
@@ -397,7 +399,7 @@ A idéia do teste unitário é validar e certificar que seu código está fazend
 
 Um aspecto que ninguém explica muito bem é sobre os testes em Nodebots, que tem como objetivo principal neste caso criar as simulações elétricas e com mocks e stubs simulando assim a comunicação entre componentes.
 
-Vamos agora criar uma pasta para os nossos testes unitários com o nome test.
+Vamos agora criar uma pasta para os nossos testes unitários com o nome `test`.
 
 ```bash
 $ mkdir test
@@ -423,7 +425,7 @@ var board = new five.Board({
 });
 ```
 
-Vamos então adicionar um teste simples para checar a integração dos nossos testes. Primeiramente criaremos um arquivo com algumas configurações do MochaJS dentro da pasta `test`. Este será o conteúdo inicial do nosso mocha.opts.
+Vamos então adicionar um teste simples para checar a integração dos nossos testes. Primeiramente criaremos um arquivo com algumas configurações do MochaJS dentro da pasta `test`. Este será o conteúdo inicial do nosso `mocha.opts`.
 
 ```bash
 --reporter spec
@@ -700,4 +702,4 @@ describe('BuildChecker', function() {
 });
 ```
 
-Este é apenas um dos vários formatos de testes unitários para a sua aplicação. Com isso terminamos o nosso primeiro projeto com testes unitários baseado nos nossos possíveis cenários. Vamos para o nosso próximo projeto com Nodebot e Johnny-five?
+Este é apenas um dos vários formatos de testes unitários para a sua aplicação. Com isso terminamos o nosso primeiro projeto com testes unitários baseado nos nossos possíveis cenários, mas caso queira fazer download ou fork do código final, acesse o [repositório do projeto build checker no Github](https://github.com/willmendesneto/build-checker). Vamos para o nosso próximo projeto com Nodebot e Johnny-five?
