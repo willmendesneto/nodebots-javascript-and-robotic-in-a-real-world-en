@@ -1,4 +1,5 @@
 sobre-o-autor.md
 introducao.md
+nodebots-e-microcontroladores.md
 primeiro-projeto-build-checker.md
 proximos-passos.md
