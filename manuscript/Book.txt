@@ -3,4 +3,5 @@ introducao.md
 nodebots-e-microcontroladores.md
 primeiro-projeto-build-checker.md
 segundo-projeto-fire-alarm.md
+apendice.md
 proximos-passos.md
