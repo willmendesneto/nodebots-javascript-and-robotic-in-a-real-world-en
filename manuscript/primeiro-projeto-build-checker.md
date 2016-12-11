@@ -2,7 +2,7 @@
 
 ## What is a pipeline build
 
-In some presentations I realized that this term is not known
+In some presentations, I realised that this term is not known
 for many people, even those who are more familiar with approaches
 such as continuous integration and continuous delivery.
 
@@ -17,7 +17,7 @@ is worth remembering that these steps can be automatic or manual.
 Whenever we get in touch with the Arduino, for example, we make
 the example of flashing the LED's, commonly known as blink.
 
-In this example I will show you a more attractive way of
+In this example, I will show you a more attractive way of
 approaching this example for our everyday life, based on models
 such as [Hubot](https://hubot.github.com/) and [Retaliation](https://github.com/codedance/Retaliation) to check our build pipeline and
 find out the health of our application using Arduino + NodeJS +
@@ -44,12 +44,12 @@ possible.
 For this project we will use:
 
 - 1 Protoboard: A protoboard is nothing more than a plate with holes and conductive connections for mounting experimental electrical circuits, without the need for welding. A simple protoboard costs between $ 5.00 to $ 10.00 and can be found in any electric store;
-- 2 LEDs (*light-emitting diode*): 1 red to signal the broken build and 1 green to signal that the build was successfully completed. An LED costs less than $ 0.50 and can be found at any electrical store;
+- 2 LEDs (*light-emitting diode*): 1 red to signal the broken build and 1 green to signal that the build was successfully completed. A LED costs less than $ 0.50 and can be found at any electrical store;
 - Arduino with 2 GND (ground) ports;
 
 ![Material needed for Build Checker](images/image47.png)
 
-GND ports are called "ground" ports. They are electrical conductors that connect to the Earth - that is, to the Electric Earth. Since it is always neutral and (theoretically) present in every electric circuit, it is always taken as reference point for the measurement of potentials, containing zero volts.
+GND ports are called "ground" ports. They are electrical conductors that connect to the Earth - that is, to the Electric Earth. Since it is always neutral and (theoretically) present in every electric circuit, it is always taken as a reference point for the measurement of potentials, containing zero volts.
 
 Now just plug the 2 LEDS, linking as follows:
 
@@ -63,7 +63,7 @@ The following image illustrates the assembly of the components with the Arduino.
 
 ### Controlling the LED
 
-Knowing the components that we will use, we now go to our initial code that will control our LED. First we will create the folder `src`, where will be the code of our application.
+Knowing the components that we will use, we now go to our initial code that will control our LED. First, we will create the folder `src`, where will be the code of our application.
 
 Let's create the folder for our `build-checker` project and navigate to the created folder.
 
@@ -72,14 +72,14 @@ $ mkdir build-checker
 $ cd build-checker
 ```
 
-We will start our application by typing the `npm init` command with the` -y` flag which means that all the answers that were previously made will be answered and registered with the default response. After this we will install the johnny-five package locally as a dependency in the folder of our project.
+We will start our application by typing the `npm init` command with the` -y` flag which means that all the answers that were previously made will be answered and registered with the default response. After this, we will install the johnny-five package locally as a dependency in the folder of our project.
 
 ```bash
 $ npm init -y
 $ npm install --save johnny-five
 ```
 
-Inside the folder of our project we will create the folder `src` and inside it our file` index.js`, where will be our content.
+Inside the folder of our project we will create the folder `src` and inside it, our file` index.js` where will be our content.
 
 ```bash
 $ mkdir src
@@ -95,7 +95,7 @@ var board = new five.Board();
 ...
 ```
 
-For the first activity with the component we will use a new Johnny Five class called `LED`. To use this class we need to pass the value of the pin that the `LED` is connected to the Arduino.
+For the first activity with the component, we will use a new Johnny Five class called `LED`. To use this class we need to pass the value of the pin that the `LED` is connected to the Arduino.
 
 ```javascript
 ...
@@ -124,16 +124,16 @@ Now let's put our code to work on our Arduino. Inside the folder of our project,
 $ node src/index.js
 ```
 
-After this command our prompt/command line is showing that the command has run successfully and the result will be that our two LEDs will be flashing.
+After this command, our prompt/command line is showing that the command has run successfully and the result will be that our two LEDs will be flashing.
 
-Quite simple, is not it? In the next topic we will think a little more about our architecture.
+Quite simple, is not it? In the next topic, we will think a little more about our architecture.
 
 
 ## Creating the CI/CD build information request
 
 We already have our build checker abstraction, let's now add the last functionality that is to read the build info on our continuous delivery server and/or continuous integration server.
 
-From there we created a request to read the content via GET in [SNAP-CI](https://snap-ci.com), our continuous integration service. SNAP-CI uses a build pipeline concept that is very interesting and one of its pros is the faster feedback, giving the possibility of parallelism or not, and definition of steps for the total build. For more information on Build Pipeline I recommend reading [Martin Fowler's Continuous Integration article](http://www.martinfowler.com/articles/continuousIntegration.html).
+From there we created a request to read the content via HTTP GET in [SNAP-CI](https://snap-ci.com), our continuous integration service. SNAP-CI uses a build pipeline concept that is very interesting and one of its pros is the faster feedback, giving the possibility of parallelism or not, and definition of steps for the total build. For more information on Build Pipeline, I recommend reading [Martin Fowler's Continuous Integration article](http://www.martinfowler.com/articles/continuousIntegration.html).
 
 We go to the SNAP-CI website, we log in and register a project. If you do not have a registration you will have to create one, but it is very fast.
 
@@ -157,7 +157,7 @@ webUrl="https://snap-ci.com/brasil-de-fato/news-service/branch/master/logs/defau
 </Projects>
 ```
 
-Analyzing the information we realize that the only information we should validate for our build is the data from the lastBuildStatus field. It is returned if the build was successfully completed, successfully completed, or is happening at the time of validation.
+Analysing the information we realise that the only information we should validate for our build is the data from the lastBuildStatus field. It is returned if the build was successfully completed, successfully completed, or is happening at the time of validation.
 
 The `lastBuildStatus` field can contain:
 
@@ -167,7 +167,7 @@ The `lastBuildStatus` field can contain:
 - `Exception` and` Unknown`: Something unexpected occurred with the current task on the server. The reasons are the most diverse, as the server had a swing in the middle of the task or he never ran a certain task yet, so he does not have the information;
 
 
-Let's now add our URL containing the CCTray information from our project and create it with the request for this information. For this we will add the package NodeJS [request](https://github.com/request/request), an HTTP client that was developed in order to facilitate the creation of HTTP or HTTPS requests. To add the new packages we will enter the following command.
+Let's now add our URL containing the CCTray information from our project and create it with the request for this information. For this, we will add the package NodeJS [request](https://github.com/request/request), an HTTP client that was developed in order to facilitate the creation of HTTP or HTTPS requests. To add the new packages we will enter the following command.
 
 ```bash
 $ npm install --save request
@@ -207,7 +207,7 @@ Let's explain a bit about RequestJS *callback*. It returns 3 parameters:
 - `response`: object with the request response information;
 - `body`: String with the information of the body of the return of the requisition;
 
-In our code then we will analyze the return of the requisition and create the appropriate treatments. The first treatment will be the verification of the error and in case we have an error we will treat the error.
+In our code then we will analyse the return of the requisition and create the appropriate treatments. The first treatment will be the verification of the error and in case we have an error we will treat the error.
 
 ```javascript
 ...
@@ -292,14 +292,14 @@ board.on('ready', function() {
 });
 ```
 
-It will query the data at a preconfigured interval and check the current state of the build, based on information from all pipelines. If there is no word *"Failure"* in the response to the request, something wrong has happened and our *build checker* will turn on the red light, otherwise the green light will remain on, signaling that everything is ok.
+It will query the data at a preconfigured interval and check the current state of the build, based on information from all pipelines. If there is no word *"Failure"* in the response to the request, something wrong has happened and our *build checker* will turn on the red light, otherwise, the green light will remain on, signalling that everything is ok.
 
 
 ## Tuning the architecture of our application
 
 Now that we've finished the first step and have seen our working with our components, let's think about improving our architecture.
 
-We can see that we have some rather loose values, which do not say much if we do not access the Johnny Five framework documentation, such as numbers 12 and 10. For these and other configurations we will create a `configuration.js` file with Project information.
+We can see that we have some rather loose values, which do not say much if we do not access the Johnny-Five framework documentation, such as numbers 12 and 10. For these and other configurations we will create a `configuration.js` file with Project information.
 
 The initial contents of this file will be:
 
@@ -315,7 +315,7 @@ module.exports = {
 };
 ```
 
-Now let's change our `src/index.js` to use our file with the default settings of our application
+Now let's change our `src/index.js` to use our file with the default settings of our application.
 
 ```javascript
 var five = require('johnny-five');
@@ -384,7 +384,7 @@ BuildChecker.prototype.startPolling = function() {
 module.exports = BuildChecker;
 ```
 
-And our `src/index.js` file will only invoke and start our code so that the LEDs start flashing.
+And our `src/index.js` file will only invoke and start our code so that the LEDs start blinking.
 
 ```javascript
 var BuildChecker = require('./build-checker');
@@ -405,7 +405,7 @@ Finishing this separation of concepts, we improve the readability, maintainabili
 
 This time something simple, but without good information about it is like adding drive tests on Nodebots applications. Unit testing is not something new, but you do not find content on this topic in Arduino, robots and hardware applications open easily, so we'll cover a bit on this topic in this book.
 
-Unit testing is just one of several ways to test your software and have a reliability in the end product. Based on the [Test Pyramid](http://martinfowler.com/bliki/TestPyramid.html), this is the way you should organize the testing of your application.
+Unit testing is just one of several ways to test your software and have a reliability in the end product. Based on the [Test Pyramid](http://martinfowler.com/bliki/TestPyramid.html), this is the way you should organise the testing of your application.
 
 ![Pyramid of tests](images/image36.png)
 
@@ -413,7 +413,7 @@ We'll talk only about unit tests, if you'd like to know more about all layers, r
 
 The idea of ​​the unit test is to validate and certify that your code is doing what it intends to do, giving feedback on the errors quickly before we deploy our project to production.
 
-One aspect that nobody explains very well is about the tests in Nodebots, which has as main objective in this case to create the electrical simulations and with mocks and stubs thus simulating the communication between components.
+One aspect that nobody explains very well is about the tests in Nodebots, which has as the main objective, in this case, to create the electrical simulations and with mocks and stubs thus simulating the communication between components.
 
 Let's now create a folder for our unit tests with the name `test`.
 
@@ -421,7 +421,7 @@ Let's now create a folder for our unit tests with the name `test`.
 $ mkdir test
 ```
 
- The unit tests will use the test framework [MochaJS](https://mochajs.org), [SinonJS](http://sinonjs.org) for *spies*, *stubs* and *mocks* and [ShouldJS]( Https://shouldjs.github.io) for *assertions*. Let's then install these packages as a dependency of project development.
+The unit tests will use the test framework [MochaJS](https://mochajs.org), [SinonJS](http://sinonjs.org) for *spies*, *stubs* and *mocks* and [ShouldJS](https://shouldjs.github.io) for *assertions*. Let's then install these packages as a dependency of project development.
 
  ```bash
  $ npm install --save-dev mocha sinon should
@@ -441,7 +441,7 @@ var board = new five.Board({
 });
 ```
 
-Let's then add a simple test to check the integration of our tests. First we will create a file with some MochaJS settings inside the `test` folder. This will be the initial content of our `mocha.opts`.
+Let's then add a simple test to check the integration of our tests. First, we will create a file with some MochaJS settings inside the `test` folder. This will be the initial content of our `mocha.opts`.
 
 ```bash
 --reporter spec
@@ -456,7 +456,7 @@ A quick explanation of the configuration information used:
 `--reporter spec`: A type of  reporter* used to display messages of test information;
 `--recursive`: flag to identify that the tests should run recursively inside the folder;
 `--require` test/spec-helper.js: *setup* file to be loaded before running the unit tests;
-`--low 1000`: Maximum time in milliseconds of tolerance between tests. If this time exceeds this time will be shown the total time of that test with a differentiated color so that we can make the necessary changes;
+`--low 1000`: Maximum time in milliseconds of tolerance between tests. If this time exceeds this time will be shown the total time of that test with a differentiated colour so that we can make the necessary changes;
 `--timeout 5000`: Maximum time in milliseconds of tolerance for the completion of each assertion. If this time exceeds this time our tests will return with an error message;
 
 We will create a file with the name `test/index.js` with a fairly simple assertion.
@@ -490,14 +490,14 @@ Now, let's create the scenarios for our tests. Let us then define the scenarios 
 
 One way to validate when the build checker should flash the LED is to create a stub for the request using the node-request to validate the response by expected types (`success` and` error`) and use some spies for the LEDs.
 
-For this simulation we will create some *fixtures* with the server responses model for success and error. Let's then create our folder with the data inside our folder containing our tests.
+For this simulation, we will create some *fixtures* with the server responses model for success and error. Let's then create our folder with the data inside our folder containing our tests.
 
 ```bash
 $ mkdir test/fixtures
 $ touch test/fixtures/success.xml test/fixtures/error.xml
 ```
 
-And we'll add the information for each file.
+And i will add the information for each file.
 
 ```xml
 <!-- test/fixtures/error.xml -->
@@ -552,7 +552,7 @@ describe('BuildChecker', function() {
 });
 ```
 
-Now we will validate when we stop our polling. Let's now use the spy method of the sinon to check if the code used the clearInterval method to end with the requests. For this we will check if the `global.clearInterval` was used once, by accessing the boolean` calledOnce`, which is an internal counter added by the `sinon.spy` method for the tests.
+Now we will validate when we stop our polling. Let's now use the spy method of the sinon to check if the code used the clearInterval method to end with the requests. For this, we will check if the `global.clearInterval` was used once, by accessing the boolean` calledOnce`, which is an internal counter added by the `sinon.spy` method for the tests.
 
 ```javascript
 ...
@@ -569,7 +569,7 @@ describe('#stopPolling', function(){
 ...
 ```
 
-And now the server scenarios responding successfully and failed. For this we will assign our data from the * fixtures * folder to variables.
+And now the server scenarios responding successfully and failed. For this, we will assign our data from the *fixtures* folder to variables.
 
 ```javascript
 ...
@@ -581,7 +581,7 @@ var errorResponseCI = fs.readFileSync(__dirname + '/fixtures/error.xml', 'utf8')
 
 Note that in each of the success and failure cases we are using the `sinon.useFakeTimers` method, which is a way to simulate events linked to timer objects in Javascript.
 
-When we call the `clock.tick` method with the information contained in the configuration file, we simulate time and time changes at the time of testing, which helps us force the call to the polling event, which uses` setInterval`.
+When we call the `clock.tick` the method with the information contained in the configuration file, we simulate time and time changes at the time of testing, which helps us force the call to the polling event, which uses` setInterval`.
 
 ```javascript
 ...
@@ -590,7 +590,7 @@ clock.tick(CONFIG.INTERVAL);
 ...
 ```
 
-We now use the syntax stub method for the `node-request` package. With this we can change the return when the `request.get` method is called. In this case we can simulate the response of each request, based on the information of our fixtures.
+We now use the syntax stub method for the `node-request` package. With this, we can change the return when the `request.get` method is called. In this case, we can simulate the response of each request, based on the information of our fixtures.
 
 ```javascript
 ...
@@ -718,4 +718,4 @@ describe('BuildChecker', function() {
 });
 ```
 
-This is just one of several unit testing formats for your application. With this we finish our first project with unit tests based on our possible scenarios, but if you want to download or fork the final code, access the [build checker project repository in Github](https://github.com/willmendesneto/build-checker). Let's go to our next project with Nodebot and Johnny-five?
+This is just one of several unit testing formats for your application. With this, we finish our first project with unit tests based on our possible scenarios, but if you want to download or fork the final code, access the [build checker project repository in Github](https://github.com/willmendesneto/build-checker). Let's go to our next project with Nodebot and Johnny-five?
