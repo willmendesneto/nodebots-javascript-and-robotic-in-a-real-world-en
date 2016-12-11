@@ -1,52 +1,50 @@
-// manuscript/segundo-projeto-fire-alarm.md
+# Second project: Fire alarm
 
-# Segundo projeto: Alarme de incêndio
+Our second example project will be that of an intelligent fire alarm. Our fire alarm will check for the temperature and, in case of a fire, it will activate the audible alarm and send an SMS to the registered cell phone.
 
-O nosso segundo projeto de exemplo será o de um alarme de incêndio inteligente. O nosso alarme de incêndio verificará pela temperatura e, em caso de incêndio, acionará o alarme sonoro e enviará um SMS para o celular cadastrado.
-
-Um exemplo simples, mas que mostra alguns pontos de integração interessantes, como integração com API's, leitura de dados de um sensor de temperatura e integração com o sensor sonoro Piezo.
+A simple example, but that shows some interesting integration points, such as integration with API's, data reading of a temperature sensor and integration with the Piezo sound sensor.
 
 
-## Anatomia de um alarme de incêndio
+## Anatomy of a fire alarm
 
 
-O projeto foi baseado em um sistema domiciliar simples de alarme de incêndio. Por padrão sistemas deste tipo fazem uma verificação de tempos em tempos e ativam o alarme de algum padrão anormal de temperatura é encontrado.
+The project was based on a simple fire alarm home system. By default systems of this type do a check from time to time and activate the alarm some different temperature pattern is encountered.
+
+## Materials needed
+
+For this project we will use:
+
+- 1 Protoboard: A protoboard is nothing more than a plate with holes and conductive connections for mounting of experimental electrical circuits, without the need of welding;
+- 1 Piezo alarm sensor: It will be used for sound feedback to the end user, in our case to the tenant (s) of the property. This sensor is very simple and costs less than $ 2.00 can be found in any electric store;
+- 1 temperature sensor: Johnny-Five works with a wide range of temperature sensors. In this case we will use the LM35 temperature sensor. This sensor is very simple and costs less than $ 1.50 can be found in any electric store;
+
+![Piezo and Temperature Sensors](images/image48.png)
+
+* For a complete list of supported sensors, go to [Johnny's Temperature Sensor Wiki](https://github.com/rwaldron/johnny-five/wiki/thermometer) page and check the list of sensor reference codes .
+
+Some sensors require a specific voltage port for their correct operation (some sensors call VND). In our case we will use a 5 volt port for the temperature sensor.
+
+Other sensors may need an analog port. Analog ports are used for the sensor to send voltage data to the Arduino so we can read and interpret your information.
+
+For this project we will mount the sensors in the Arduino as follows:
+
+- Piezo alarm sensor: Attach the black piezo wire to the GND port and the red wire to our arduino's number 3 port;
+- LM35 temperature sensor: attach the grounding pin to the GND port, the voltage pin on the 5-volt port and the data output pin on the analog port "A0";
+
+The following image illustrates the assembly of the integrated components with the Arduino.
+
+![Integration of components used in Fire Alarm](images/image37.png)
 
 
-## Material necessário
+## Controlling the Flame Sensor
 
-Para este projeto utilizaremos:
+With the LM35 sensor connected to the Arduino board, let's now read the ambient temperature information. For this we will use the Thermometer class of Johnny five. When we create a new object Thermometer, we must pay attention to some parameters:
 
-- 1 Protoboard: Uma protoboard nada mais é que uma placa com furos e conexões condutoras para montagem de circuitos elétricos experimentais, sem a necessidade de soldagem;
-- 1 sensor de alarme Piezo: Ele será utilizado para o feedback sonoro ao usuário final, no nosso caso ao(s) inquilino(s) do imóvel. Este sensor é bem simples e custa menos de R$ 2,00 podendo ser encontrado em qualquer loja de elétrica;
-- 1 sensor de temperatura: O Johnny-Five trabalha os mais diversos sensores de temperatura. Neste caso usaremos o sensor de temperatura LM35. Este sensor é bem simples e custa menos de R$ 1,50 podendo ser encontrado em qualquer loja de elétrica;
+- `controller`: Name of the sensor used. You can refer to the complete list of sensors supported by Johnny Five in the [Thermometer class documentation](https://github.com/rwaldron/johnny-five/wiki/thermometer);
+- `pin`: The pin information used for the analog connection on the Arduino. It is used in analog sensors for reading the temperature information;
+- `toCelsius`: An optional method that we can rewrite to handle the analog data and transform it into the temperature format of your preference. In our case, we will use the Celsius format;
 
-![Sensores de piezo e temperatura](images/image48.png)
-
-* Para obter a lista completa dos sensores suportados acesse a página [Wiki do Johnny para sensores de temperatura](https://github.com/rwaldron/johnny-five/wiki/thermometer) e verifique a lista dos códigos de referência dos sensores.
-
-Alguns sensores necessitam de uma porta de voltagem específica para o seu correto funcionamento (alguns sensores chamam de VND). No nosso caso usaremos uma porta de 5 volts para o sensor de temperatura.
-
-Outros sensores podem precisar de uma porta analógica. Portas analógicas são utilizadas para que o sensor envie dados de voltagem para o Arduino e assim possamos ler e interpretar as suas informações.
-
-Para este projeto vamos montar os sensores no Arduino da seguinte maneira:
-
-- Sensor de alarme piezo: encaixe o fio preto do piezo na porta GND e o fio vermelho na porta de número 3 do nosso arduino;
-- Sensor de temperatura LM35: encaixe o pino de aterramento na porta GND, o pino de voltagem na porta de 5 volts e o pino de saída de dados na porta analógica "A0";
-
-A imagem a seguir ilustra a montagem dos componentes integrados com o Arduino.
-
-![Integração dos componentes utilizados no Fire Alarm](images/image37.png)
-
-## Controlando o sensor de chamas
-
-Com o sensor LM35 conectado à placa Arduino, vamos agora fazer a leitura da informação da temperatura do ambiente. Para isso utilizaremos a classe Thermometer do Johnny five. Ao instanciarmos um novo objeto Thermometer, devemos nos atentar a alguns parâmetros:
-
-- controller: Nome do sensor utilizado. Você pode consultar a lista completa dos sensores suportados pelo Johnny Five na [documentação da classe Thermometer](https://github.com/rwaldron/johnny-five/wiki/thermometer);
-- pin: A informação do pino utilizado para a conexão analógica no Arduino. Ele é utilizado em sensores analógicos para leitura da informação de temperatura;
-- toCelsius: Um método opcional que podemos reescrever para lidar com o dado analógico e transformá-lo no formato de temperatura de sua preferência. No nosso caso utilizaremos o formato Celsius;
-
-Baseado nestas informações, o arquivo principal será do nosso alarme de incêndio será:
+Based on this information, the main file of our fire alarm will be:
 
 ```javascript
 var five = require('johnny-five');
@@ -68,26 +66,26 @@ board.on("ready", function() {
 });
 ```
 
-Vamos então validar a funcionalidade do nosso código com a plataforma Arduino. Dentro da pasta do nosso projeto, vamos digitar no nosso prompt de comando/terminal o seguinte comando:
+Let's then validate the functionality of our code with the Arduino platform. Inside the folder of our project, we will enter in our command line/prompt/terminal the following command:
 
 ```bash
 $ node src/index.js
 ```
 
-E este será o resultado do nosso código.
+And this will be the result of our code.
 
-![lendo informações de temperatura do sensor usando javascript](images/image04.png)
+![Reading sensor temperature information using javascript](images/image04.png)
 
-O código é bastante simples, como podem perceber. No próximo tópico vamos pensar um pouco mais sobre a nossa arquitetura e como evoluir este código para algo mais fácil de manter.
+The code is quite simple, as you can see. In the next topic we will think a little more about our architecture and how to evolve this code for something easier to maintain.
 
 
-## Evoluindo o nosso código inicial
+## Evolving our initial code
 
-O nosso código inicial está funcional, mas evoluir este código para os próximos passos é algo complexo. Para facilitarmos as próximas etapas do nosso projeto, vamos fazer algumas adaptações no nosso código inicial.
+Our initial code is functional, but evolving this code to the next steps is somewhat complex. To facilitate the next steps of our project, we will make some adjustments in our initial code.
 
-Vocês podem perceber que temos várias configurações, tais como o nome do `controller` e `pin` do sensor. Para melhorarmos o manusear destas configurações que são constantes, ou seja, não mudam durante todo o tempo de vida da nossa aplicação, vamos adicioná-las em um arquivo com as nossas configurações específicas.
+You may notice that we have several configurations, such as the `controller` name and` pin` of the sensor. To improve the handling of these settings that are constant, that is, they do not change throughout the life of our application, we will add them in a file with our specific settings.
 
-Este será adicionado ao nosso arquivo `src/configuration.js`
+This will be added to our `src/configuration.js` file.
 
 ```javascript
 // src/configuration.js
@@ -101,7 +99,7 @@ module.exports = {
 };
 ```
 
-Este é o conteúdo do nosso arquivo `src/fire-alarm.js`. Percebam que agora estamos invocando o código de configuração externo e adicionando os valores na variável `CONFIG`. Esta etapa é interessante, pois desvinculamos as configurações básicas do nosso projeto da classe, que agora possui a responsabilidade de lidar com os sensores do projeto `fire alarm`.
+This is the contents of our `src/fire-alarm.js` file. Notice that we are now invoking the external configuration code and adding the values in the `CONFIG` variable. This step is interesting because we unlink the basic settings of our class project, which now has the responsibility of dealing with the sensors of the `fire alarm` project.
 
 ```javascript
 // src/fire-alarm.js
@@ -130,7 +128,7 @@ FireAlarm.prototype.startPolling = function() {
 module.exports = FireAlarm;
 ```
 
-E o nosso arquivo `src/index.js` principal vai ter um conteúdo mais simples, tendo a responsabilidade de iniciar o projeto e o polling da instância da classe `FireAlarm`.
+And our main `src/index.js` file will have a simpler content, having the responsibility of initiating the project and polling the` FireAlarm` class instance.
 
 ```javascript
 // src/index.js
@@ -144,22 +142,22 @@ board.on('ready', function() {
 });
 ```
 
-Quando executamos o nosso código a partir do comando, veremos o mesmo resultado na nossa linha de comando/prompt de comando.
+When we run our code from the command, we will see the same result at our command line/prompt.
 
 ```javascript
 $ npm start
 ```
 
-Com essas alterações temos um código de fácil manutenção e muito mais legibilidade para ser utilizado na nossa aplicação. Claro que esta é uma das várias abordagens que podem ser utilizadas no seu projeto, mas o foco deste tópico é passar a idéia de sempre pensar em como melhorar o nosso projeto.
+With these changes we have a code of easy maintenance and much more readability to be used in our application. Of course this is one of several approaches that can be used in your project, but the focus of this topic is to pass on the idea of always thinking about how to improve our project.
 
 
-## Integrando com o Piezo para aviso sonoro
+## Integrating with Piezo for audible warning
 
-Twilio é um serviço que permite aos desenvolvedores incorporar voz, *VoIP* e mensagens SMS em aplicativos a partir de uma API RESTful que fornece os recursos de voz e SMS para aplicativos.
+Twilio is a service that allows developers to embed voice, *VoIP* and SMS messages into applications from a RESTful API that provides the voice and SMS capabilities for applications.
 
-O sensor de alarme que vamos utilizar é o Piezo por se tratar de um componente simples de manipular e bastante barato, tendo o seu valor em torno de R$ 2,00.
+The alarm sensor we are going to use is Piezo because it is a simple component to handle and quite cheap, having its value around $ 1.00.
 
-A integração do Piezo ao nosso projeto é algo bem trivial, pois o Johnny Five já possui a classe `five.Piezo`.
+The integration of Piezo into our project is somewhat trivial, since Johnny Five already has the `five.Piezo` class.
 
 ```javascript
 ...
@@ -167,12 +165,12 @@ this.piezo = new five.Piezo(3);
 ...
 ```
 
-Esta classe aceita o número do pino que está vinculado ao sensor e ao ativar temos o método `play`, que aceita um objeto com as informações:
+This class accepts the pin number that is bound to the sensor and when activating we have the `play` method, which accepts an object with the information:
 
-- tempo: intervalo entre cada nota;
-- song: array que aceita arrays de 2 posições com as informações de nota musical e o tempo;
+- `time`: interval between each note;
+- `song`: array that accepts arrays of 2 positions with the information of musical note and the time;
 
-Você pode perceber um exemplo do método play sendo utilizado no código abaixo.
+You can see an example of the play method being used in the code below.
 
 ```javascript
 self.piezo.play({
@@ -183,7 +181,7 @@ self.piezo.play({
 });
 ```
 
-No nosso projeto vamos fazer a integração em dividida em 2 partes. Primeiramente vamos adicionar a instância do piezo no construtor da nossa classe, para que o piezo fique acessível nos outros métodos.
+In our project we are going to make the integration divided into 2 parts. First we will add the piezo instance in the constructor of our class, so that the piezo is accessible in the other methods.
 
 ```javascript
 ...
@@ -194,7 +192,7 @@ function FireAlarm() {
 ...
 ```
 
-Com a nossa instância adicionada e acessível, vamos utilizá-lo no nosso método `startPolling`. Vamos adicionar mais uma validação, acessando o boolean `piezo.isPlaying` que contém a informação de inicialização do piezo no nosso projeto e, caso a temperatura esteja acima do limite e o piezo esteja acessível, acionaremos o nosso alarme sonoro. Com isto o método ficará como o código a seguir.
+With our instance added and accessible, let's use it in our `startPolling` method. Let's add another validation by accessing the `piezo.isPlaying` boolean that contains the piezo initialization information in our project and, if the temperature is over the threshold and the piezo is accessible, we will trigger our audible alarm. With this the method will remain as the following code.
 
 ```javascript
 ...
@@ -218,7 +216,7 @@ FireAlarm.prototype.startPolling = function() {
 ...
 ```
 
-O nosso código final do `FireAlarm` terá o seguinte conteúdo:
+Our final `FireAlarm` code will contain the following content:
 
 ```javascript
 var CONFIG = require('./configuration');
@@ -262,22 +260,22 @@ FireAlarm.prototype.startPolling = function() {
 module.exports = FireAlarm;
 ```
 
-Com isto temos o primeiro feedback para os usuários da nossa aplicação. A próxima etapa será adicionar a funcionalidade de envio de SMS utilizando a API do Twilio.
+With this we have the first feedback for the users of our application. The next step will be to add the SMS sending functionality using the Twilio API.
 
 
-## Enviando SMS para o seu celular usando o Twilio
+## Sending SMS to your phone using Twilio
 
-Twilio é um serviço que permite aos desenvolvedores incorporar voz, VoIP e mensagens SMS em aplicativos a partir de uma API RESTful que fornece os recursos de voz e SMS para aplicativos. As bibliotecas de cliente estão disponíveis em vários idiomas e, claro, possuem um cliente para o NodeJS chamado [twilio-node](https://twilio.github.io/twilio-node).
+Twilio is a service that allows developers to incorporate voice, VoIP and SMS messaging into applications from a RESTful API that provides voice and SMS capabilities to applications. Client libraries are available in multiple languages ​​and, of course, have a client for NodeJS called [twilio-node](https://twilio.github.io/twilio-node).
 
-Integrar SMS no nosso aplicativo então será algo bem simples. Vamos ao site to Twilio e vamos habilitar o serviço de SMS.
+Integrating SMS into our application will be very simple. We go to the site to Twilio and we will enable the SMS service.
 
-![Página de setup do SMS no Twilio](images/image26.png)
+![SMS setup page in Twilio](images/image26.png)
 
-Ele possui alguns números pagos, caso queira utilizar em algum produto realmente. No nosso caso utilizaremos o número gerado pelo próprio serviço e criaremos uma conta trial na plataforma.
+It has some paid numbers if you really want to use some product. In our case we will use the number generated by the service itself and create a trial account on the platform.
 
-![Adicionando um número de telefone no Twilio](images/image23.png)
+![Adding a phone number on Twilio](images/image23.png)
 
-Agora, com o Twilio configurado, vamos então começar a integração com o nosso alarme de incêndio. Primeiramente vamos adicionar as informações do telefone, chave SSID da sua conta e token de autenticação do Twilio. Vamos adicionar estas informações no nosso `src/configuration.js`.
+Now, with Twilio set up, let's start integrating with our fire alarm. First let's add the phone information, SSID of your account, and Twilio's authentication token. Let's add this information in our `src/configuration.js`.
 
 ```javascript
 module.exports = {
@@ -294,7 +292,7 @@ module.exports = {
 };
 ```
 
-E vamos continuar com a integração do Twilio no nosso código, acessando e lendo as informações adicionadas no arquivo `src/configuration.js` com o pacote do Twilio node.
+And let's continue with the integration of Twilio into our code by accessing and reading the information added in the `src/configuration.js` file with the Twilio node package.
 
 ```javascript
 // fire-alarm.js
@@ -347,30 +345,31 @@ FireAlarm.prototype.startPolling = function() {
 module.exports = FireAlarm;
 ```
 
-Vamos agora executar o nosso código digitando o comando npm start e esta será  a informação impressa no nosso prompt/linha de comando.
+Let's now run our code by typing the command npm start and this will be the information printed at our prompt/command line.
 
-Ao executarmos o nosso código e a temperatura exceder o limite configurado, além do sensor Piezo que acionará o alarme o nosso cliente do Twilio será acionado e nos enviará um SMS utilizando as configurações previamente adicionadas. Então você receberá a seguinte mensagem no seu celular.
+When we execute our code and the temperature exceeds the configured limit, in addition to the Piezo sensor that will trigger the alarm our customer of Twilio will be activated and will send us an SMS using the previously added configurations. Then you will receive the following message on your cell phone.
 
-![SMS enviado pela API do Twilio](images/image21.png)
+![SMS sent by Twilio API](images/image21.png)
 
-Com isto vimos a integração completa do nosso Fire Alarm. Claro que este é o primeiro passo, você pode evoluir o código e adicionar novas funcionalidades. Como já sabemos: o céu é o limite!
+With this we have seen the complete integration of our Fire Alarm. Of course this is the first step, you can evolve the code and add new features. As we already know: the sky is the limit!
 
-Mas e quanto aos testes unitários? Sabemos que está funcionando, mas temos que ter certeza de que o código tem um nível aceitável de qualidade até mesmo para evoluirmos o nosso projeto e adicionar novas funcionalidades. Vamos agora criar os nossos testes unitários.
-
-
-### Criando testes unitários para o Fire Alarm
+But what about the unit tests? We know it's working, but we have to make sure the code has an acceptable level of quality even to evolve our project and add new features. Let's now create our unit tests.
 
 
-Como comentado no conteúdo "Criando testes unitários para o build checker", teste unitário é apenas uma das várias maneiras de testar o seu software e ter uma confiabilidade no produto final com algumas validações automáticas antes de efetuarmos o deploy do nosso projeto para produção.
+### Creating unit tests for Fire Alarm
 
-Vamos agora criar uma pasta para os nossos testes unitários com o nome test. Como padrão, instaremos o framework de teste [MochaJS](https://mochajs.org), [SinonJS](http://sinonjs.org) para *spies*, *stubs* e *mocks* e [ShouldJS](https://shouldjs.github.io) para as *assertions*. Vamos então instalar estes pacotes como dependência de desenvolvimento do projeto.
+
+As commented on in the "Building unit tests for build checker" content, unit testing is just one of several ways to test your software and have reliability in the final product with some automatic validations before deploying our project to production.
+
+Let's now create a folder for our unit tests with the name test. By default, we will instantiate the [MochaJS]test framework (https://mochajs.org), [SinonJS](http://sinonjs.org) for *spies*, *stubs* and *mocks* and [ShouldJS](https://shouldjs.github.io) for *assertions*. Let's then install these packages as a dependency of project development.
+
 
 ```bash
 $ mkdir test
 $ npm install --save-dev mocha sinon should
 ```
 
-Para os nossos testes reutilizaremos o conteúdo do `test/spec-helper.js` e do `test/mocha.opts` que criamos para o nosso projeto do build checker. Ele utiliza o pacote [mock-Firmata](https://github.com/rwaldron/mock-firmata) para setup dos testes na nossa aplicação Johnny-Five.
+For our tests we will reuse the contents of `test/spec-helper.js` and` test/mocha.opts` that we created for our build checker project. It uses the [mock-Firmata package](https://github.com/rwaldron/mock-firmata) to setup the tests in our Johnny-Five application.
 
 ```javascript
 //test/spec-helper.js
@@ -385,7 +384,7 @@ var board = new five.Board({
 });
 ```
 
-E este será o conteúdo inicial do nosso `mocha.opts`.
+And this will be the initial content of our `mocha.opts`.
 
 ```bash
 --reporter spec
@@ -395,26 +394,26 @@ E este será o conteúdo inicial do nosso `mocha.opts`.
 --timeout 5000
 ```
 
-Uma explicação rápida sobre as informações de configuração utilizadas:
+A quick explanation of the configuration information used:
 
---reporter spec: Tipo de reporter utilizado para mostrar as mensagens das informações dos testes;
---recursive: flag para identificar que os testes devem rodar de maneira recursiva dentro da pasta;
---require test/spec-helper.js: arquivo de setup a ser carregado antes de rodarmos os testes unitários;
---slow 1000: Tempo máximo em milissegundos de tolerância entre os testes. Caso ultrapasse este tempo será mostrado o tempo total daquele teste com uma cor diferenciada para que possamos efetuar as devidas alterações;
---timeout 5000: Tempo máximo em milissegundos de tolerância para a finalização de cada asserção. Caso ultrapasse este tempo os nossos testes retornarão com uma mensagem de erro;
+`--reporter spec`: The type of reporter used to display the test information messages;
+`--recursive`: flag to identify that the tests should run recursively within the folder;
+`--require test/spec-helper.js`: setup file to be loaded before running the unit tests;
+`--low 1000`: Maximum time in milliseconds of tolerance between tests. If this time exceeds this time will be shown the total time of that test with a differentiated color so that we can make the necessary changes;
+`--timeout 5000`: Maximum time in milliseconds of tolerance for the completion of each assertion. If this time exceeds this time our tests will return with an error message;
 
-Agora sim, vamos criar os cenários para os nossos testes. Vamos então definir os cenários que devemos cobrir nos nossos testes:
+Now, let's create the scenarios for our tests. Let us then define the scenarios that we must cover in our tests:
 
-- Configurações iniciais da aplicação;
-- Informações iniciais quando criamos a instância do `FireAlarm`;
-- Quando iniciamos o polling e o sensor sinaliza que a temperatura está dentro do limite aceitável;
-- Quando iniciamos o polling e o sensor sinaliza que a temperatura está acima do limite aceitável;
-- Quando o sensor piezo é acionado;
-- Quando a API SMS do Twilio é acionada;
+- Initial application settings;
+- Initial information when creating the instance of `FireAlarm`;
+- When we start the polling and the sensor signals that the temperature is within the acceptable limit;
+- When we start the polling and the sensor signals that the temperature is above the acceptable limit;
+- When the piezo sensor is activated;
+- When the Twilio SMS API is triggered;
 
-Uma forma de validarmos quando o fire alarm deve acionar o alarme sonoro é criarmos um *stub* para trigger e usaremos alguns *spies* para a API do Twilio.
+One way to validate when the fire alarm should trigger the audible alarm is to create a *stub* for trigger and use some *spies* for the Twilio API.
 
-Como primeiro passo criaremos os testes de nosso arquivo de configuração, que dividiremos entre as informações do sensor de temperatura e da API do Twilio. Faremos a requisição do nosso `src/configuration.js` e verificaremos a informação do pino que vai ser vinculado ao sensor, o valor do intervalo a ser utilizado para checar as informações do sensor e o limite aceitável da temperatura do ambiente no qual o `FireAlarm` estará funcionando e o telefone configurado para receber o SMS.
+As a first step we will create the tests of our configuration file, which we will divide between the temperature sensor information and the Twilio API. We will make the request for our `src/configuration.js` and we will check the information of the pin to be connected to the sensor, the value of the interval to be used to check the sensor information and the acceptable temperature limit of the environment in which` FireAlarm` will be working and your phone will be set to receive SMS.
 
 ```javascript
 var CONFIG = require('../src/configuration');
@@ -438,7 +437,7 @@ describe('Configuration', function() {
 });
 ```
 
-Agora avaliamos as informações que serão passadas para o Twilio, que no nosso caso serão a chave SSID, token de autenticação e o número telefônico fornecido pelo Twilio.
+Now we evaluate the information that will be passed to Twilio, which in our case will be the SSID key, authentication token and the telephone number provided by Twilio.
 
 ```javascript
   ...
@@ -459,7 +458,7 @@ Agora avaliamos as informações que serão passadas para o Twilio, que no nosso
   ...
 ```
 
-O nosso arquivo de testes do `src/configuration.js` ficará assim.
+Our `src/configuration.js` test file will look like this.
 
 ```javascript
 var CONFIG = require('../src/configuration');
@@ -503,10 +502,9 @@ describe('Configuration', function() {
 });
 ```
 
-Vamos então criar o cenário para validar o código do nosso `FireAlarm`. Uma das coisas que devemos ter em mente sobre o nosso framework de teste unitário é que o seu método `beforeEach`, que acontece antes de cada método `it` vai ser utilizado como documentação para reprodução de cada cenário específico.
+Let's then create the scenario to validate the code of our `FireAlarm`. One of the things we should keep in mind about our unit testing framework is that its `beforeEach` method, which happens before each` it` method, is going to be used as documentation for playback of each specific scenario.
 
-
-Vamos então explicar mais sobre o conteúdo deste arquivo e o porquê de cada teste. Criamos os testes da instância do nosso `FireAlarm` e seus atributos iniciais.
+Let's then explain more about the contents of this file and why of each test. We create the tests of the instance of our `FireAlarm` and its initial attributes.
 
 ```javascript
 var proxyquire = require('proxyquire');
@@ -549,7 +547,7 @@ describe('FireAlarm', function() {
 });
 ```
 
-Vamos validar quando paramos o nosso *polling*. Vamos usar agora o método `spy` do sinon para verificar se o código utilizou o método `clearInterval` para finalizar com as requisições. Para isso verificaremos se o `global.clearInterval` foi utilizado uma vez, acessando o boolean `calledOnce`, que é um contador interno adicionado pelo método `sinon.spy` para os testes.
+Let's validate when we stop our *polling*. Let's now use the `spy` method of the sinon to check if the code used the` clearInterval` method to end with the requests. For this we will check if the `global.clearInterval` was used once, by accessing the boolean `calledOnce`, which is an internal counter added by the `sinon.spy` method for the tests.
 
 ```javascript
   ...
@@ -566,7 +564,7 @@ Vamos validar quando paramos o nosso *polling*. Vamos usar agora o método `spy`
   ...
 ```
 
-E agora os cenários que acontecem quando o sensor é iniciado. Para isto vamos atribuir alguns spies para as funções setInterval e para o sensor do piezo. A nossa primeira validação será a certificação de que o intervalo está sendo iniciado quando invocamos o método `fireAlarm.startPolling()`.
+And now the scenarios that happen when the sensor is started. For this we will assign some spies for the setInterval functions and for the piezo sensor. Our first validation will be to certify that the range is being started when we call the `fireAlarm.startPolling()` method.
 
 ```javascript
   ...
@@ -595,9 +593,9 @@ E agora os cenários que acontecem quando o sensor é iniciado. Para isto vamos 
   ...
 ```
 
-Para a validação do caso da temperatura acima do limite utilizaremos o método `clock.tick` com a informação contida no arquivo de configuração, simulando as alterações de horário e tempo no momento do teste, o que nos ajuda a forçar a chamada do evento de polling, que utiliza o `setInterval`.
+To validate the temperature case above the limit we will use the `clock.tick` method with the information contained in the configuration file, simulating the time and time changes at the time of the test, which helps us to force the event Polling, which uses `setInterval`.
 
-Neste cenário utilizamos o `stub` para simular o retorno do sensor com o valor acima do aceitável e nos certificamos de que o sensor Piezo e a Api do Twilio foram acionados.
+In this scenario we use the `stub` to simulate the return of the sensor with a value above the acceptable and we make sure that the Piezo sensor and the Apollo of Twilio were triggered.
 
 ```javascript
     ...
@@ -629,7 +627,7 @@ Neste cenário utilizamos o `stub` para simular o retorno do sensor com o valor 
     ...
 ```
 
-Agora vamos validar o cenário da temperatura ambiente em níveis aceitáveis. As verificações utilizam as mesmas abordagens da anterior, mas neste caso nos certifamos de que o sensor piezo e a API do Twilio **não foram acionadas**.
+Now we will validate the ambient temperature scenario in acceptable levels. The checks use the same approaches as the previous one, but in this case we make sure that the piezo sensor and the Twilio API **were not triggered**.
 
 ```javascript
     ...
@@ -669,7 +667,7 @@ Agora vamos validar o cenário da temperatura ambiente em níveis aceitáveis. A
     ...
 ```
 
-Com base nos nossos cenários de teste, este é o conteúdo do teste do nosso arquivo fire alarm:
+Based on our test scenarios, this is the test content of our fire alarm file:
 
 ```javascript
 var proxyquire = require('proxyquire');
@@ -797,4 +795,4 @@ describe('FireAlarm', function() {
 });
 ```
 
-Com isso terminamos o nosso primeiro projeto com testes unitários, cobrindo todos os nossos possíveis cenários. No próximo capítulo veremos outros serviços que facilitam a nossa vida ao enviarmos o código para produção, tais como servidores de integração contínua, cobertura de código e de complexidade de maneira automatizada.
+With that we finished our first project with unit tests, covering all our possible scenarios. In the next chapter we'll look at other services that make life easier for us by sending code to production, such as seamless integration servers, code coverage, and complexity in an automated way.
