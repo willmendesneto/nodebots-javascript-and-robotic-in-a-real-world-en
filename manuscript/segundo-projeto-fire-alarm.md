@@ -1,12 +1,11 @@
 # Second project: Fire alarm
 
-Our second example project will be that of an intelligent fire alarm. Our fire alarm will check for the temperature and, in case of a fire, it will activate the audible alarm and send an SMS to the registered cell phone.
+Our second example project will be that of an intelligent fire alarm. Our fire alarm will check for the temperature and, in the case of a fire, it will activate the audible alarm and send an SMS to the registered cell phone.
 
 A simple example, but that shows some interesting integration points, such as integration with API's, data reading of a temperature sensor and integration with the Piezo sound sensor.
 
 
 ## Anatomy of a fire alarm
-
 
 The project was based on a simple fire alarm home system. By default systems of this type do a check from time to time and activate the alarm some different temperature pattern is encountered.
 
@@ -16,11 +15,11 @@ For this project we will use:
 
 - 1 Protoboard: A protoboard is nothing more than a plate with holes and conductive connections for mounting of experimental electrical circuits, without the need of welding;
 - 1 Piezo alarm sensor: It will be used for sound feedback to the end user, in our case to the tenant (s) of the property. This sensor is very simple and costs less than $ 2.00 can be found in any electric store;
-- 1 temperature sensor: Johnny-Five works with a wide range of temperature sensors. In this case we will use the LM35 temperature sensor. This sensor is very simple and costs less than $ 1.50 can be found in any electric store;
+- 1 temperature sensor: Johnny-Five works with a wide range of temperature sensors. In this case, we will use the LM35 temperature sensor. This sensor is very simple and costs less than $ 1.50 can be found in any electric store;
 
 ![Piezo and Temperature Sensors](images/image48.png)
 
-* For a complete list of supported sensors, go to [Johnny's Temperature Sensor Wiki](https://github.com/rwaldron/johnny-five/wiki/thermometer) page and check the list of sensor reference codes .
+* For a complete list of supported sensors, go to [Johnny's Temperature Sensor Wiki](https://github.com/rwaldron/johnny-five/wiki/thermometer) page and check the list of sensor reference codes.
 
 Some sensors require a specific voltage port for their correct operation (some sensors call VND). In our case we will use a 5 volt port for the temperature sensor.
 
@@ -76,7 +75,7 @@ And this will be the result of our code.
 
 ![Reading sensor temperature information using javascript](images/image04.png)
 
-The code is quite simple, as you can see. In the next topic we will think a little more about our architecture and how to evolve this code for something easier to maintain.
+The code is quite simple, as you can see. In the next topic, we will think a little more about our architecture and how to evolve this code for something easier to maintain.
 
 
 ## Evolving our initial code
@@ -144,11 +143,11 @@ board.on('ready', function() {
 
 When we run our code from the command, we will see the same result at our command line/prompt.
 
-```javascript
+```bash
 $ npm start
 ```
 
-With these changes we have a code of easy maintenance and much more readability to be used in our application. Of course this is one of several approaches that can be used in your project, but the focus of this topic is to pass on the idea of always thinking about how to improve our project.
+With these changes, we have a code of easy maintenance and much more readability to be used in our application. Of course, this is one of the several approaches that can be used in your project, but the focus of this topic is to pass on the idea of always thinking about how to improve our project.
 
 
 ## Integrating with Piezo for audible warning
@@ -157,7 +156,7 @@ Twilio is a service that allows developers to embed voice, *VoIP* and SMS messag
 
 The alarm sensor we are going to use is Piezo because it is a simple component to handle and quite cheap, having its value around $ 1.00.
 
-The integration of Piezo into our project is somewhat trivial, since Johnny Five already has the `five.Piezo` class.
+The integration of Piezo into our project is somewhat trivial since Johnny Five already has the `five.Piezo` class.
 
 ```javascript
 ...
@@ -181,7 +180,7 @@ self.piezo.play({
 });
 ```
 
-In our project we are going to make the integration divided into 2 parts. First we will add the piezo instance in the constructor of our class, so that the piezo is accessible in the other methods.
+In our project, we are going to make the integration divided into 2 parts. First, we will add the piezo instance in the constructor of our class so that the piezo is accessible in the other methods.
 
 ```javascript
 ...
@@ -192,7 +191,7 @@ function FireAlarm() {
 ...
 ```
 
-With our instance added and accessible, let's use it in our `startPolling` method. Let's add another validation by accessing the `piezo.isPlaying` boolean that contains the piezo initialization information in our project and, if the temperature is over the threshold and the piezo is accessible, we will trigger our audible alarm. With this the method will remain as the following code.
+With our instance added and accessible, let's use it in our `startPolling` method. Let's add another validation by accessing the `piezo.isPlaying` boolean that contains the piezo initialization information in our project and, if the temperature is over the threshold and the piezo is accessible, we will trigger our audible alarm. With this, the method will remain as the following code.
 
 ```javascript
 ...
@@ -260,7 +259,7 @@ FireAlarm.prototype.startPolling = function() {
 module.exports = FireAlarm;
 ```
 
-With this we have the first feedback for the users of our application. The next step will be to add the SMS sending functionality using the Twilio API.
+With this, we have the first feedback for the users of our application. The next step will be to add the SMS sending functionality using the Twilio API.
 
 
 ## Sending SMS to your phone using Twilio
@@ -271,7 +270,7 @@ Integrating SMS into our application will be very simple. We go to the site to T
 
 ![SMS setup page in Twilio](images/image26.png)
 
-It has some paid numbers if you really want to use some product. In our case we will use the number generated by the service itself and create a trial account on the platform.
+It has some paid numbers if you really want to use some product. In our case, we will use the number generated by the service itself and create a trial account on the platform.
 
 ![Adding a phone number on Twilio](images/image23.png)
 
@@ -351,25 +350,23 @@ When we execute our code and the temperature exceeds the configured limit, in ad
 
 ![SMS sent by Twilio API](images/image21.png)
 
-With this we have seen the complete integration of our Fire Alarm. Of course this is the first step, you can evolve the code and add new features. As we already know: the sky is the limit!
+With this we have seen the complete integration of our Fire Alarm. Of course, this is the first step, you can evolve the code and add new features. As we already know: the sky is the limit!
 
 But what about the unit tests? We know it's working, but we have to make sure the code has an acceptable level of quality even to evolve our project and add new features. Let's now create our unit tests.
 
 
 ### Creating unit tests for Fire Alarm
 
-
 As commented on in the "Building unit tests for build checker" content, unit testing is just one of several ways to test your software and have reliability in the final product with some automatic validations before deploying our project to production.
 
 Let's now create a folder for our unit tests with the name test. By default, we will instantiate the [MochaJS]test framework (https://mochajs.org), [SinonJS](http://sinonjs.org) for *spies*, *stubs* and *mocks* and [ShouldJS](https://shouldjs.github.io) for *assertions*. Let's then install these packages as a dependency of project development.
-
 
 ```bash
 $ mkdir test
 $ npm install --save-dev mocha sinon should
 ```
 
-For our tests we will reuse the contents of `test/spec-helper.js` and` test/mocha.opts` that we created for our build checker project. It uses the [mock-Firmata package](https://github.com/rwaldron/mock-firmata) to setup the tests in our Johnny-Five application.
+For our tests, we will reuse the contents of `test/spec-helper.js` and` test/mocha.opts` that we created for our build checker project. It uses the [mock-Firmata package](https://github.com/rwaldron/mock-firmata) to setup the tests in our Johnny-Five application.
 
 ```javascript
 //test/spec-helper.js
@@ -399,7 +396,7 @@ A quick explanation of the configuration information used:
 `--reporter spec`: The type of reporter used to display the test information messages;
 `--recursive`: flag to identify that the tests should run recursively within the folder;
 `--require test/spec-helper.js`: setup file to be loaded before running the unit tests;
-`--low 1000`: Maximum time in milliseconds of tolerance between tests. If this time exceeds this time will be shown the total time of that test with a differentiated color so that we can make the necessary changes;
+`--low 1000`: Maximum time in milliseconds of tolerance between tests. If this time exceeds this time will be shown the total time of that test with a differentiated colour so that we can make the necessary changes;
 `--timeout 5000`: Maximum time in milliseconds of tolerance for the completion of each assertion. If this time exceeds this time our tests will return with an error message;
 
 Now, let's create the scenarios for our tests. Let us then define the scenarios that we must cover in our tests:
@@ -413,7 +410,7 @@ Now, let's create the scenarios for our tests. Let us then define the scenarios 
 
 One way to validate when the fire alarm should trigger the audible alarm is to create a *stub* for trigger and use some *spies* for the Twilio API.
 
-As a first step we will create the tests of our configuration file, which we will divide between the temperature sensor information and the Twilio API. We will make the request for our `src/configuration.js` and we will check the information of the pin to be connected to the sensor, the value of the interval to be used to check the sensor information and the acceptable temperature limit of the environment in which` FireAlarm` will be working and your phone will be set to receive SMS.
+As a first step, we will create the tests of our configuration file, which we will divide between the temperature sensor information and the Twilio API. We will make the request for our `src/configuration.js` and we will check the information of the pin to be connected to the sensor, the value of the interval to be used to check the sensor information and the acceptable temperature limit of the environment in which` FireAlarm` will be working and your phone will be set to receive SMS.
 
 ```javascript
 var CONFIG = require('../src/configuration');
@@ -547,7 +544,7 @@ describe('FireAlarm', function() {
 });
 ```
 
-Let's validate when we stop our *polling*. Let's now use the `spy` method of the sinon to check if the code used the` clearInterval` method to end with the requests. For this we will check if the `global.clearInterval` was used once, by accessing the boolean `calledOnce`, which is an internal counter added by the `sinon.spy` method for the tests.
+Let's validate when we stop our *polling*. Let's now use the `spy` method of the sinon to check if the code used the` clearInterval` method to end with the requests. For this, we will check if the `global.clearInterval` was used once, by accessing the boolean `calledOnce`, which is an internal counter added by the `sinon.spy` method for the tests.
 
 ```javascript
   ...
@@ -564,7 +561,7 @@ Let's validate when we stop our *polling*. Let's now use the `spy` method of the
   ...
 ```
 
-And now the scenarios that happen when the sensor is started. For this we will assign some spies for the setInterval functions and for the piezo sensor. Our first validation will be to certify that the range is being started when we call the `fireAlarm.startPolling()` method.
+And now the scenarios that happen when the sensor is started. For this, we will assign some spies for the setInterval functions and for the piezo sensor. Our first validation will be to certify that the range is being started when we call the `fireAlarm.startPolling()` method.
 
 ```javascript
   ...
@@ -627,7 +624,7 @@ In this scenario we use the `stub` to simulate the return of the sensor with a v
     ...
 ```
 
-Now we will validate the ambient temperature scenario in acceptable levels. The checks use the same approaches as the previous one, but in this case we make sure that the piezo sensor and the Twilio API **were not triggered**.
+Now we will validate the ambient temperature scenario in acceptable levels. The checks use the same approaches as the previous one, but in this case, we make sure that the piezo sensor and the Twilio API **were not triggered**.
 
 ```javascript
     ...
@@ -795,4 +792,4 @@ describe('FireAlarm', function() {
 });
 ```
 
-With that we finished our first project with unit tests, covering all our possible scenarios. In the next chapter we'll look at other services that make life easier for us by sending code to production, such as seamless integration servers, code coverage, and complexity in an automated way.
+With that we finished our first project with unit tests, covering all our possible scenarios. In the next chapter, we'll look at other services that make life easier for us by sending the code to production, such as seamless integration servers, code coverage, and complexity in an automated way.
