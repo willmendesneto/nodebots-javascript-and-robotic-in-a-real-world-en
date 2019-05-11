@@ -1,17 +1,21 @@
-# Nodebots - Javascript and robotics in the real world 🤖
+# 🤖 Nodebots - Javascript and robotics in the real world
 
 
-Leanpub website: https://leanpub.com/nodebots-javascript-and-robotic-in-the-real-world
+Leanpub website: [https://leanpub.com/nodebots-javascript-and-robotic-in-the-real-world](http://bit.ly/nodebots-book-en)
 
 Do you want to know how to use Javascript to read sensors and create powerful applications with Nodebots? Do you want to learn how to create performance tests and good architecture practices for complex applications? So this book is for you!
 
-## Code Repository da versão PT-BR
+## 🇧🇷 Leanpub book - PT-BR
 
-Check the PT-BR version of this book [clicking here](https://github.com/willmendesneto/nodebots-javascript-and-robotic-in-a-real-world-en)
+Check Leanpub website with the PT-BR version of this book [clicking here](http://bit.ly/nodebots-book-pt-br)
+
+## 🇧🇷 Code Repository - PT-BR
+
+Check the PT-BR version of this book [clicking here](http://bit.ly/nodebots-book-pt-br-github)
 
 This book is for anyone who wants to take the first steps on Nodebots or who already worked with. Their contents will be shown with simple and low cost sensors some pain points on the real integrations of a Nodebot application, such as integration between external APIs from events reading some sensor data, as well as good practices in how to use automation for validations, tests, builds metrics and more.
 
-## Topics
+## 📝 Topics
 
 ### Nodebots and microcontrollers
 
@@ -41,3 +45,12 @@ This book is for anyone who wants to take the first steps on Nodebots or who alr
  
 
 You will learn directly with some real projects, using important concepts of software development, showing with simple and cheap ideas how to integrate Nodebots into our day-by-day life can be something simple and practical!
+
+
+
+## ✍ Author
+
+**Wilson Mendes (willmendesneto)**
++ <https://twitter.com/willmendesneto>
++ <http://github.com/willmendesneto>
+
