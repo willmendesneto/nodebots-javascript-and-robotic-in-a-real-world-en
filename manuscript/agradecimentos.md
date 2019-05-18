@@ -1,6 +1,6 @@
 # Acknowledgements
 
-I would like to say thank initially my mother (who has played the role of mother and father for many times), this wonderful person who teaches me many of the values that I take with me until today, being my example to this day. Marco Marocci and Robson Mário, who are like parents to me and my brother Leonardo Araújo who was always with me when I needed and who also gave me 2 brothers, Ramon Pombo and Matheus Pombo.
+I would like to say thank initially my mother (who has played the role of mother and father for many times), this wonderful person who teaches me many of the values that I take with me until today, being my example to this day and my brother Leonardo Araújo who was always with me.
 
 I would like to thank my wife, Nilana Rocha, for all her support. It was one of the crucial factors and without a doubt, this book would not be a reality. Thank you so much for everything.
 
