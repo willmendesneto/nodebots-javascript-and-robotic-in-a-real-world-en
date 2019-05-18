@@ -55,13 +55,13 @@ For Linux and Mac OS X systems you can use various formats such as downloading t
 It's something very simple to install as well. You can install locally via Curl or Wget, respectively:
 
 ```bash
-$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.6/install.sh | bash
+$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 ```
 
 Wget:
 
 ```bash
-$ wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.6/install.sh | bash
+$ wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 ```
 
 > Packages like CURL and WGET may not be installed on your operating system by default. If necessary, check the best method for your operating system or access the NVM repository on Github to check the installation steps or possible problem solutions.
@@ -73,12 +73,12 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 ```
 
-With this, as soon as you recharge your terminal the NVM will be available. Now just install the version of NodeJS of your choice. In this book, we will use version 5.3.0.
+With this, as soon as you recharge your terminal the NVM will be available. Now just install the version of NodeJS of your choice. In this book, we will use version 10.9.0.
 
 ```bash
-$ nvm install 5.3.0
-$ nvm use 5.3.0
-$ nvm alias default 5.3.0
+$ nvm install 10.9.0
+$ nvm use 10.9.0
+$ nvm alias default 10.9.0
 ```
 
 After these commands NVM will download the specific version of NodeJS, making it accessible via the terminal. To verify that the command completed successfully, enter the command:
@@ -87,7 +87,7 @@ After these commands NVM will download the specific version of NodeJS, making it
 $ node -v
 ```
 
-The result should be `v5.3.0`. If this was the return of your command, you're all set for the next steps. If you have any problems make sure that the NVM loading code has been inserted into the configuration file of your terminal and start another instance of your terminal.
+The result should be `v10.9.0`. If this was the return of your command, you're all set for the next steps. If you have any problems make sure that the NVM loading code has been inserted into the configuration file of your terminal and start another instance of your terminal.
 
 A file with the commands in this topic was created for the installation of NVM and Node with the version used in this book. If you want to use it, please download [nvm-install.sh](https://gist.github.com/willmendesneto/4c951413bacbb8850837a53bcdada30d) file in this gist link.
 
