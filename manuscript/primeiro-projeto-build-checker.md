@@ -109,7 +109,7 @@ Our first functional code will look something like this.
 const five = require('johnny-five');
 const board = new five.Board();
 
-board.on('ready', function() {
+board.on('ready', () => {
   const ledSuccess = new five.Led(12);
   const ledError = new five.Led(10);
 
@@ -179,9 +179,9 @@ Now let's add the package in our project and create the request using the Reques
 
 ```javascript
 ...
-var request = require('request');
-var five = require('johnny-five');
-var board = new five.Board();
+const request = require('request');
+const five = require('johnny-five');
+const board = new five.Board();
 ...
 ```
 
@@ -239,7 +239,7 @@ if(body.indexOf('Failure') !== -1) {
 With the request created, we will only create a gap between each request, using a simple `setInterval`. We will use a time of 500 milliseconds for code validation, but this value can be changed to whatever is ideal for you.
 
 ```javascript
-setInterval(function(){
+setInterval(() => {
   request(CI_CCTRACKER_URL, function(error, response, body) {
     ..
   });
@@ -265,12 +265,12 @@ const CI_CCTRACKER_URL = [
   'cctray.xml'
 ].join('/');
 
-board.on('ready', function() {
+board.on('ready', () => {
 
   const ledSuccess = new five.Led(12);
   const ledError = new five.Led(10);
 
-  setInterval(function(){
+  setInterval(() => {
     request(CI_CCTRACKER_URL, function(error, response, body) {
       if (error) {
         console.log('Something is wrong in our CI/CD =(');
@@ -322,12 +322,12 @@ const five = require('johnny-five');
 const CONFIG = require('./configuration');
 const board = new five.Board();
 
-board.on('ready', function() {
+board.on('ready', () => {
 
   const ledSuccess = new five.Led(CONFIG.LED.SUCCESS);
   const ledError = new five.Led(CONFIG.LED.ERROR);
 
-  setInterval(function(){
+  setInterval(() => {
     request(CONFIG.CI_CCTRACKER_URL, function(error, response, body)
     {
       ...
@@ -353,14 +353,14 @@ function BuildChecker() {
   this.ledError = new five.Led(CONFIG.LED.ERROR);
 };
 
-BuildChecker.prototype.stopPolling = function() {
+BuildChecker.prototype.stopPolling = () => {
   clearInterval(intervalId);
 };
 
-BuildChecker.prototype.startPolling = function() {
+BuildChecker.prototype.startPolling = () => {
   const self = this;
 
-  intervalId = setInterval(function(){
+  intervalId = setInterval(() => {
     request.get(CONFIG.CI_CCTRACKER_URL, function(error, response, body) {
       if (error) {
         console.log('Somethink is wrong with your CI =(');
@@ -391,7 +391,7 @@ const BuildChecker = require('./build-checker');
 const five = require('johnny-five');
 const board = new five.Board();
 
-board.on('ready', function() {
+board.on('ready', () => {
   buildChecker = new BuildChecker();
   buildChecker.startPolling();
 });
@@ -462,8 +462,8 @@ A quick explanation of the configuration information used:
 We will create a file with the name `test/index.js` with a fairly simple assertion.
 
 ```javascript
-describe('Test validation', function() {
-  it('1 + 1 = 2', function(){
+describe('Test validation', () => {
+  it('1 + 1 = 2', () => {
     (1 + 1).should.be.equal(2);
   });
 });
@@ -535,17 +535,17 @@ const five = require('johnny-five');
 const request = require('request');
 const sinon = require('sinon');
 
-describe('BuildChecker', function() {
+describe('BuildChecker', () => {
 
-  beforeEach(function(){
+  beforeEach(() => {
     buildChecker = new BuildChecker();
   });
 
-  it('should have the led success port configured', function(){
+  it('should have the led success port configured', () => {
     (buildChecker.ledSuccess instanceof five.Led).should.be.equal(true);
   });
 
-  it('should have the led error port configured', function(){
+  it('should have the led error port configured', () => {
     (buildChecker.ledError instanceof five.Led).should.be.equal(true);
   });
 
@@ -556,13 +556,13 @@ Now we will validate when we stop our polling. Let's now use the spy method of t
 
 ```javascript
 ...
-describe('#stopPolling', function(){
-  beforeEach(function(){
+describe('#stopPolling', () => {
+  beforeEach(() => {
     sinon.spy(global, 'clearInterval');
     buildChecker.stopPolling();
   });
 
-  it('should remove interval', function(){
+  it('should remove interval', () => {
     global.clearInterval.calledOnce.should.be.true;
   });
 });
@@ -602,7 +602,7 @@ An important point in our tests is to remember to restore all the `stub` and` fa
 
 ```javascript
 ...
-afterEach(function(){
+afterEach(() => {
   request.get.restore();
   clock.restore();
 });
@@ -624,47 +624,47 @@ const successResponseCI = fs.readFileSync(__dirname + '/fixtures/success.xml', '
 const errorResponseCI = fs.readFileSync(__dirname + '/fixtures/error.xml', 'utf8');
 let clock = null;
 
-describe('BuildChecker', function() {
+describe('BuildChecker', () => {
 
-  beforeEach(function(){
+  beforeEach(() => {
     buildChecker = new BuildChecker();
   });
 
-  it('should have the led success port configured', function(){
+  it('should have the led success port configured', () => {
     (buildChecker.ledSuccess instanceof five.Led).should.be.equal(true);
   });
 
-  it('should have the led error port configured', function(){
+  it('should have the led error port configured', () => {
     (buildChecker.ledError instanceof five.Led).should.be.equal(true);
   });
 
-  describe('#stopPolling', function(){
-    beforeEach(function(){
+  describe('#stopPolling', () => {
+    beforeEach(() => {
       sinon.spy(global, 'clearInterval');
       buildChecker.stopPolling();
     });
 
-    it('should remove interval', function(){
+    it('should remove interval', () => {
       global.clearInterval.calledOnce.should.be.true;
     });
   });
 
-  describe('#startPolling', function(){
-    beforeEach(function(){
+  describe('#startPolling', () => {
+    beforeEach(() => {
       sinon.spy(global, 'setInterval');
       buildChecker.startPolling();
     });
 
-    afterEach(function(){
+    afterEach(() => {
       global.setInterval.restore();
     });
 
-    it('should creates polling', function(){
+    it('should creates polling', () => {
       global.setInterval.calledOnce.should.be.true;
     });
 
-    describe('When the CI server send success response', function(){
-      beforeEach(function() {
+    describe('When the CI server send success response', () => {
+      beforeEach(() => {
         clock = sinon.useFakeTimers();
         sinon.stub(request, 'get').yields(null, null, successResponseCI);
         sinon.spy(buildChecker.ledSuccess, 'on');
@@ -673,23 +673,23 @@ describe('BuildChecker', function() {
         clock.tick(CONFIG.INTERVAL);
       });
 
-      afterEach(function(){
+      afterEach(() => {
         request.get.restore();
         clock.restore();
       });
 
-      it('should turn on the success led', function(){
+      it('should turn on the success led', () => {
         buildChecker.ledSuccess.on.calledOnce.should.be.true;
       });
 
-      it('should turn off the error led', function(){
+      it('should turn off the error led', () => {
         buildChecker.ledError.off.calledOnce.should.be.true;
       });
 
     });
 
-    describe('When the CI server send error response', function(){
-      beforeEach(function() {
+    describe('When the CI server send error response', () => {
+      beforeEach(() => {
         clock = sinon.useFakeTimers();
         sinon.stub(request, 'get').yields(null, null, errorResponseCI);
         sinon.spy(buildChecker.ledError, 'on');
@@ -698,16 +698,16 @@ describe('BuildChecker', function() {
         clock.tick(CONFIG.INTERVAL);
       });
 
-      afterEach(function(){
+      afterEach(() => {
         request.get.restore();
         clock.restore();
       });
 
-      it('should turn off the success led', function(){
+      it('should turn off the success led', () => {
         buildChecker.ledSuccess.off.calledOnce.should.be.true;
       });
 
-      it('should turn on the error led', function(){
+      it('should turn on the error led', () => {
         buildChecker.ledError.on.calledOnce.should.be.true;
       });
 
