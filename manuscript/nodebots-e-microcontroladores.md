@@ -319,7 +319,7 @@ In this example, we will call this method with the `ready` option, which verifie
 
 ```javascript
 ...
-board.on('ready', function() {
+board.on('ready', () => {
   console.log('Hello World!');
 });
 ...
@@ -331,7 +331,7 @@ And the final content of our `index.js` has been pretty tight, as you can see be
 const five = require('johnny-five');
 const board = new five.Board();
 
-board.on('ready', function() {
+board.on('ready', () => {
   console.log('Hello World!');
 });
 ```
