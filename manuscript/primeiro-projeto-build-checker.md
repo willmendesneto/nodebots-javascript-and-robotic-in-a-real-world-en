@@ -90,8 +90,8 @@ In the `index.js` file we will import the Johnny-five package using the` require
 
 ```javascript
 ...
-var five = require('johnny-five');
-var board = new five.Board();
+const five = require('johnny-five');
+const board = new five.Board();
 ...
 ```
 
@@ -99,19 +99,19 @@ For the first activity with the component, we will use a new Johnny Five class c
 
 ```javascript
 ...
-var led = new five.Led(12);
+const led = new five.Led(12);
 ...
 ```
 
 Our first functional code will look something like this.
 
 ```javascript
-var five = require('johnny-five');
-var board = new five.Board();
+const five = require('johnny-five');
+const board = new five.Board();
 
 board.on('ready', function() {
-  var ledSuccess = new five.Led(12);
-  var ledError = new five.Led(10);
+  const ledSuccess = new five.Led(12);
+  const ledError = new five.Led(10);
 
   ledSuccess.blink();
   ledError.blink();
@@ -191,7 +191,7 @@ And we'll add the CCTray address that we've copied from our continuous integrati
 // For educational purposes this code is using this format
 // For computational resource issues use the URL as a string
 // instead of manipulating the Array in the final project
-var CI_CCTRACKER_URL = [
+const CI_CCTRACKER_URL = [
   'https://snap-ci.com',
   'willmendesneto',
   'generator-reactor',
@@ -249,14 +249,14 @@ setInterval(function(){
 And the final content of our `src/index.js` was as follows:
 
 ```javascript
-var request = require('request');
-var five = require('johnny-five');
-var board = new five.Board();
+const request = require('request');
+const five = require('johnny-five');
+const board = new five.Board();
 
 // For educational purposes this code is using this format
 // For computational resource issues use the URL as a string
 // instead of manipulating the Array in the final project
-var CI_CCTRACKER_URL = [
+const CI_CCTRACKER_URL = [
   'https://snap-ci.com',
   'willmendesneto',
   'generator-reactor',
@@ -267,8 +267,8 @@ var CI_CCTRACKER_URL = [
 
 board.on('ready', function() {
 
-  var ledSuccess = new five.Led(12);
-  var ledError = new five.Led(10);
+  const ledSuccess = new five.Led(12);
+  const ledError = new five.Led(10);
 
   setInterval(function(){
     request(CI_CCTRACKER_URL, function(error, response, body) {
@@ -318,14 +318,14 @@ module.exports = {
 Now let's change our `src/index.js` to use our file with the default settings of our application.
 
 ```javascript
-var five = require('johnny-five');
-var CONFIG = require('./configuration');
-var board = new five.Board();
+const five = require('johnny-five');
+const CONFIG = require('./configuration');
+const board = new five.Board();
 
 board.on('ready', function() {
 
-  var ledSuccess = new five.Led(CONFIG.LED.SUCCESS);
-  var ledError = new five.Led(CONFIG.LED.ERROR);
+  const ledSuccess = new five.Led(CONFIG.LED.SUCCESS);
+  const ledError = new five.Led(CONFIG.LED.ERROR);
 
   setInterval(function(){
     request(CONFIG.CI_CCTRACKER_URL, function(error, response, body)
@@ -343,11 +343,11 @@ We are talking about *build checker*, but we have no abstraction for this operat
 Let's then create our file with the LED information abstractions and the HTTP request by accessing the settings.
 
 ```javascript
-var CONFIG = require('./configuration');
-var request = require('request');
-var five = require('johnny-five');
+const CONFIG = require('./configuration');
+const request = require('request');
+const five = require('johnny-five');
 
-intervalId = null;
+let intervalId = null;
 function BuildChecker() {
   this.ledSuccess = new five.Led(CONFIG.LED.SUCCESS);
   this.ledError = new five.Led(CONFIG.LED.ERROR);
@@ -358,7 +358,7 @@ BuildChecker.prototype.stopPolling = function() {
 };
 
 BuildChecker.prototype.startPolling = function() {
-  var self = this;
+  const self = this;
 
   intervalId = setInterval(function(){
     request.get(CONFIG.CI_CCTRACKER_URL, function(error, response, body) {
@@ -387,9 +387,9 @@ module.exports = BuildChecker;
 And our `src/index.js` file will only invoke and start our code so that the LEDs start blinking.
 
 ```javascript
-var BuildChecker = require('./build-checker');
-var five = require('johnny-five');
-var board = new five.Board();
+const BuildChecker = require('./build-checker');
+const five = require('johnny-five');
+const board = new five.Board();
 
 board.on('ready', function() {
   buildChecker = new BuildChecker();
@@ -411,7 +411,7 @@ Unit testing is just one of several ways to test your software and have a reliab
 
 We'll talk only about unit tests, if you'd like to know more about all layers, read the [post "TestPyramid"](http://martinfowler.com/bliki/TestPyramid.html) by Martin Fowler.
 
-The idea of ​​the unit test is to validate and certify that your code is doing what it intends to do, giving feedback on the errors quickly before we deploy our project to production.
+The idea of the unit test is to validate and certify that your code is doing what it intends to do, giving feedback on the errors quickly before we deploy our project to production.
 
 One aspect that nobody explains very well is about the tests in Nodebots, which has as the main objective, in this case, to create the electrical simulations and with mocks and stubs thus simulating the communication between components.
 
@@ -431,10 +431,10 @@ A fundamental NodeJS package in this step is [mock-Firmata](https://github.com/r
 
 ```javascript
 require('should');
-var mockFirmata = require('mock-firmata');
-var five = require('johnny-five');
+const mockFirmata = require('mock-firmata');
+const five = require('johnny-five');
 
-var board = new five.Board({
+const board = new five.Board({
   io: new mockFirmata.Firmata(),
   debug: false,
   repl: false
@@ -530,10 +530,10 @@ Let's then create the scenario to validate our code. Some things we should keep 
 Let's then explain more about the contents of this file and why of each test. We create the tests of the instance of our `BuildChecker` and its initial attributes.
 
 ```javascript
-var BuildChecker = require('../src/build-checker');
-var five = require('johnny-five');
-var request = require('request');
-var sinon = require('sinon');
+const BuildChecker = require('../src/build-checker');
+const five = require('johnny-five');
+const request = require('request');
+const sinon = require('sinon');
 
 describe('BuildChecker', function() {
 
@@ -573,9 +573,9 @@ And now the server scenarios responding successfully and failed. For this, we wi
 
 ```javascript
 ...
-var fs = require('fs');
-var successResponseCI = fs.readFileSync(__dirname + '/fixtures/success.xml', 'utf8');
-var errorResponseCI = fs.readFileSync(__dirname + '/fixtures/error.xml', 'utf8');
+const fs = require('fs');
+const successResponseCI = fs.readFileSync(__dirname + '/fixtures/success.xml', 'utf8');
+const errorResponseCI = fs.readFileSync(__dirname + '/fixtures/error.xml', 'utf8');
 ...
 ```
 
@@ -614,15 +614,15 @@ Based on our test scenarios, this is the test content of our build checker file:
 ```javascript
 // test/build-checker.js
 
-var BuildChecker = require('../src/build-checker');
-var CONFIG = require('../src/configuration');
-var five = require('johnny-five');
-var request = require('request');
-var sinon = require('sinon');
-var fs = require('fs');
-var successResponseCI = fs.readFileSync(__dirname + '/fixtures/success.xml', 'utf8');
-var errorResponseCI = fs.readFileSync(__dirname + '/fixtures/error.xml', 'utf8');
-var clock = null;
+const BuildChecker = require('../src/build-checker');
+const CONFIG = require('../src/configuration');
+const five = require('johnny-five');
+const request = require('request');
+const sinon = require('sinon');
+const fs = require('fs');
+const successResponseCI = fs.readFileSync(__dirname + '/fixtures/success.xml', 'utf8');
+const errorResponseCI = fs.readFileSync(__dirname + '/fixtures/error.xml', 'utf8');
+let clock = null;
 
 describe('BuildChecker', function() {
 
