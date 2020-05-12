@@ -46,21 +46,21 @@ With the LM35 sensor connected to the Arduino board, let's now read the ambient 
 Based on this information, the main file of our fire alarm will be:
 
 ```javascript
-var five = require('johnny-five');
-var board = new five.Board();
+const five = require('johnny-five');
+const board = new five.Board();
 
 function FireAlarm() {
   return new five.Thermometer({
-    controller: "LM35",
-    pin: "A0"
+    controller: 'LM35',
+    pin: 'A0'
   });
 };
 
-board.on("ready", function() {
-  var temperatureSensor = new FireAlarm();
+board.on('ready', function() {
+  const temperatureSensor = new FireAlarm();
 
   setInterval(function() {
-    console.log("celsius: %d", temperatureSensor.celsius);
+    console.log('celsius: %d', temperatureSensor.celsius);
   });
 });
 ```
@@ -91,7 +91,7 @@ This will be added to our `src/configuration.js` file.
 module.exports = {
   FIRE_ALARM: {
     // https://github.com/rwaldron/johnny-five/wiki/thermometer
-    CONTROLLER: "LM35",
+    CONTROLLER: 'LM35',
     PIN: 'A0'
   },
   INTERVAL: 1000
@@ -102,9 +102,9 @@ This is the contents of our `src/fire-alarm.js` file. Notice that we are now inv
 
 ```javascript
 // src/fire-alarm.js
-var CONFIG = require('./configuration');
-var five = require('johnny-five');
-var intervalId = null;
+const CONFIG = require('./configuration');
+const five = require('johnny-five');
+let intervalId = null;
 
 function FireAlarm() {
   this.temperatureSensor = new five.Thermometer({
@@ -113,12 +113,12 @@ function FireAlarm() {
   });
 };
 
-FireAlarm.prototype.stopPolling = function() {
+FireAlarm.prototype.stopPolling = () => {
   clearInterval(intervalId);
 };
 
-FireAlarm.prototype.startPolling = function() {
-  self = this;
+FireAlarm.prototype.startPolling = () => {
+  const self = this;
   intervalId = setInterval(function() {
     console.log('celsius: %d', self.temperatureSensor.celsius);
   }, CONFIG.INTERVAL);
@@ -131,11 +131,11 @@ And our main `src/index.js` file will have a simpler content, having the respons
 
 ```javascript
 // src/index.js
-var FireAlarm = require('./fire-alarm');
-var five = require('johnny-five');
-var board = new five.Board();
+const FireAlarm = require('./fire-alarm');
+const five = require('johnny-five');
+const board = new five.Board();
 
-board.on('ready', function() {
+board.on('ready', () => {
   fireAlarm = new FireAlarm();
   fireAlarm.startPolling();
 });
@@ -195,7 +195,7 @@ With our instance added and accessible, let's use it in our `startPolling` metho
 
 ```javascript
 ...
-FireAlarm.prototype.startPolling = function() {
+FireAlarm.prototype.startPolling = () => {
   self = this;
   intervalId = setInterval(function() {
     if (self.temperatureSensor.celsius >= CONFIG.FIRE_ALARM.LIMIT && !self.piezo.isPlaying) {
@@ -206,9 +206,9 @@ FireAlarm.prototype.startPolling = function() {
         ],
         tempo: 200
       });
-      console.log('Up to the limit:', self.temperatureSensor.celsius);
+      console.log(`Up to the limit: ${self.temperatureSensor.celsius}`);
     } else {
-      console.log('That\'s ok:', self.temperatureSensor.celsius);
+      console.log(`That's ok: ${self.temperatureSensor.celsius}`);
     }
   }, CONFIG.INTERVAL);
 };
@@ -218,10 +218,10 @@ FireAlarm.prototype.startPolling = function() {
 Our final `FireAlarm` code will contain the following content:
 
 ```javascript
-var CONFIG = require('./configuration');
-var request = require('request');
-var five = require('johnny-five');
-var intervalId = null;
+const CONFIG = require('./configuration');
+const request = require('request');
+const five = require('johnny-five');
+let intervalId = null;
 
 function FireAlarm() {
   this.piezo = new five.Piezo(3);
@@ -231,11 +231,11 @@ function FireAlarm() {
 };
 
 
-FireAlarm.prototype.stopPolling = function() {
+FireAlarm.prototype.stopPolling = () => {
   clearInterval(intervalId);
 };
 
-FireAlarm.prototype.startPolling = function() {
+FireAlarm.prototype.startPolling = () => {
   self = this;
   intervalId = setInterval(function() {
     if (self.temperatureSensor.celsius >= CONFIG.FIRE_ALARM.LIMIT && !self.piezo.isPlaying) {
@@ -248,9 +248,9 @@ FireAlarm.prototype.startPolling = function() {
         tempo: 200
       });
 
-      console.log('Up to the limit:', self.temperatureSensor.celsius);
+      console.log(`Up to the limit: ${self.temperatureSensor.celsius}`);
     } else {
-      console.log('That\'s ok:', self.temperatureSensor.celsius);
+      console.log(`That's ok: ${self.temperatureSensor.celsius}`);
     }
 
   }, CONFIG.INTERVAL);
@@ -278,6 +278,7 @@ Now, with Twilio set up, let's start integrating with our fire alarm. First let'
 
 ```javascript
 module.exports = {
+  FIRE_ALARM: {
      LIMIT: 30,
      PIN: 'A0',
      PHONE_NUMBER: ''
@@ -296,13 +297,13 @@ And let's continue with the integration of Twilio into our code by accessing and
 ```javascript
 // fire-alarm.js
 
-var CONFIG = require('./configuration');
-var request = require('request');
-var five = require('johnny-five');
-var twilio = require('twilio');
-var intervalId = null;
+const CONFIG = require('./configuration');
+const request = require('request');
+const five = require('johnny-five');
+const twilio = require('twilio');
+let intervalId = null;
 
-var client = new twilio.RestClient(CONFIG.TWILIO.ACCOUNT_SSID, CONFIG.TWILIO.AUTH_TOKEN);
+const client = new twilio.RestClient(CONFIG.TWILIO.ACCOUNT_SSID, CONFIG.TWILIO.AUTH_TOKEN);
 
 function FireAlarm() {
   this.piezo = new five.Piezo(3);
@@ -311,11 +312,11 @@ function FireAlarm() {
   });
 };
 
-FireAlarm.prototype.stopPolling = function() {
+FireAlarm.prototype.stopPolling = () => {
   clearInterval(intervalId);
 };
 
-FireAlarm.prototype.startPolling = function() {
+FireAlarm.prototype.startPolling = () => {
   self = this;
   intervalId = setInterval(function() {
     if (self.temperatureSensor.celsius >= CONFIG.FIRE_ALARM.LIMIT && !self.piezo.isPlaying) {
@@ -334,9 +335,9 @@ FireAlarm.prototype.startPolling = function() {
         from: CONFIG.TWILIO.PHONE_NUMBER
       });
 
-      console.log('Up to the limit:', self.temperatureSensor.celsius);
+      console.log(`Up to the limit: ${self.temperatureSensor.celsius}`);
     } else {
-      console.log('That\'s ok:', self.temperatureSensor.celsius);
+      console.log(`That's ok: ${self.temperatureSensor.celsius}`);
     }
   }, CONFIG.INTERVAL);
 };
@@ -371,10 +372,10 @@ For our tests, we will reuse the contents of `test/spec-helper.js` and` test/moc
 ```javascript
 //test/spec-helper.js
 require('should');
-var mockFirmata = require('mock-firmata');
-var five = require('johnny-five');
+const mockFirmata = require('mock-firmata');
+const five = require('johnny-five');
 
-var board = new five.Board({
+const board = new five.Board({
   io: new mockFirmata.Firmata(),
   debug: false,
   repl: false
@@ -413,21 +414,21 @@ One way to validate when the fire alarm should trigger the audible alarm is to c
 As a first step, we will create the tests of our configuration file, which we will divide between the temperature sensor information and the Twilio API. We will make the request for our `src/configuration.js` and we will check the information of the pin to be connected to the sensor, the value of the interval to be used to check the sensor information and the acceptable temperature limit of the environment in which` FireAlarm` will be working and your phone will be set to receive SMS.
 
 ```javascript
-var CONFIG = require('../src/configuration');
+const CONFIG = require('../src/configuration');
 
-describe('Configuration', function() {
+describe('Configuration', () => {
 
-  describe('Temperature information', function() {
+  describe('Temperature information', () => {
 
-    it('should have the sensor port configured', function(){
+    it('should have the sensor port configured', () => {
       CONFIG.FIRE_ALARM.should.have.property('PIN').which.is.a.String()
     });
 
-    it('should have the sensor alarm limit configured', function(){
+    it('should have the sensor alarm limit configured', () => {
       CONFIG.FIRE_ALARM.should.have.property('LIMIT').which.is.a.Number()
     });
 
-    it('should have the user phone configured', function(){
+    it('should have the user phone configured', () => {
       CONFIG.FIRE_ALARM.should.have.property('PHONE_NUMBER').which.is.a.String()
     });
   });
@@ -438,17 +439,17 @@ Now we evaluate the information that will be passed to Twilio, which in our case
 
 ```javascript
   ...
-  describe('SMS information', function() {
+  describe('SMS information', () => {
 
-    it('should have account ssid configured', function(){
+    it('should have account ssid configured', () => {
       CONFIG.TWILIO.should.have.property('ACCOUNT_SSID').which.is.a.String()
     });
 
-    it('should have auth token configured', function(){
+    it('should have auth token configured', () => {
     CONFIG.TWILIO.should.have.property('AUTH_TOKEN').which.is.a.String()
     });
 
-    it('should have the user phone configured', function(){
+    it('should have the user phone configured', () => {
       CONFIG.TWILIO.should.have.property('PHONE_NUMBER').which.is.a.String()
     });
   });
@@ -458,41 +459,41 @@ Now we evaluate the information that will be passed to Twilio, which in our case
 Our `src/configuration.js` test file will look like this.
 
 ```javascript
-var CONFIG = require('../src/configuration');
+const CONFIG = require('../src/configuration');
 
-describe('Configuration', function() {
+describe('Configuration', () => {
 
-  describe('Temperature information', function() {
+  describe('Temperature information', () => {
 
-    it('should have the sensor port configured', function(){
+    it('should have the sensor port configured', () => {
       CONFIG.FIRE_ALARM.should.have.property('PIN').which.is.a.String()
     });
 
-    it('should have the sensor alarm limit configured', function(){
+    it('should have the sensor alarm limit configured', () => {
       CONFIG.FIRE_ALARM.should.have.property('LIMIT').which.is.a.Number()
     });
 
-    it('should have the user phone configured', function(){
+    it('should have the user phone configured', () => {
       CONFIG.FIRE_ALARM.should.have.property('PHONE_NUMBER').which.is.a.String()
     });
   });
 
-  describe('SMS information', function() {
+  describe('SMS information', () => {
 
-    it('should have account ssid configured', function(){
+    it('should have account ssid configured', () => {
       CONFIG.TWILIO.should.have.property('ACCOUNT_SSID').which.is.a.String()
     });
 
-    it('should have auth token configured', function(){
+    it('should have auth token configured', () => {
       CONFIG.TWILIO.should.have.property('AUTH_TOKEN').which.is.a.String()
     });
 
-    it('should have the user phone configured', function(){
+    it('should have the user phone configured', () => {
       CONFIG.TWILIO.should.have.property('PHONE_NUMBER').which.is.a.String()
     });
   });
 
-  it('should have the interval polling information', function(){
+  it('should have the interval polling information', () => {
     CONFIG.should.have.property('INTERVAL').which.is.a.Number()
   });
 
@@ -504,18 +505,18 @@ Let's then create the scenario to validate the code of our `FireAlarm`. One of t
 Let's then explain more about the contents of this file and why of each test. We create the tests of the instance of our `FireAlarm` and its initial attributes.
 
 ```javascript
-var proxyquire = require('proxyquire');
-var CONFIG = require('../src/configuration');
-var five = require('johnny-five');
-var request = require('request');
-var sinon = require('sinon');
+const proxyquire = require('proxyquire');
+const CONFIG = require('../src/configuration');
+const five = require('johnny-five');
+const request = require('request');
+const sinon = require('sinon');
 
-describe('FireAlarm', function() {
+describe('FireAlarm', () => {
 
-  beforeEach(function(){
+  beforeEach(() => {
     this.sandbox = sinon.sandbox.create();
     this.createMessagesSpy = this.sandbox.spy();
-    var restClientMessage = {
+    const restClientMessage = {
       messages: {
         create: this.createMessagesSpy
       }
@@ -527,17 +528,17 @@ describe('FireAlarm', function() {
       }
     };
 
-    var FireAlarm = proxyquire('../src/fire-alarm', {
+    const FireAlarm = proxyquire('../src/fire-alarm', {
       twilio: twilioMock
     });
     fireAlarm = new FireAlarm();
   });
 
-  afterEach(function() {
+  afterEach(() => {
     this.sandbox.restore();
   });
 
-  it('should have the termometer sensor configured', function(){
+  it('should have the termometer sensor configured', () => {
     (fireAlarm.temperatureSensor instanceof five.Thermometer).should.be.equal(true);
   });
 
@@ -548,13 +549,13 @@ Let's validate when we stop our *polling*. Let's now use the `spy` method of the
 
 ```javascript
   ...
-  describe('#stopPolling', function(){
-    beforeEach(function(){
+  describe('#stopPolling', () => {
+    beforeEach(() => {
       this.sandbox.spy(global, 'clearInterval');
       fireAlarm.stopPolling();
     });
 
-    it('should remove interval', function(){
+    it('should remove interval', () => {
       global.clearInterval.calledOnce.should.be.true;
     });
   });
@@ -565,11 +566,11 @@ And now the scenarios that happen when the sensor is started. For this, we will 
 
 ```javascript
   ...
-  describe('#startPolling', function(){
-    beforeEach(function(){
+  describe('#startPolling', () => {
+    beforeEach(() => {
       this.piezoPlaySpy = this.sandbox.spy();
 
-      var piezoStub = {
+      const piezoStub = {
         isPlaying: false,
         play: this.piezoPlaySpy
       };
@@ -579,11 +580,11 @@ And now the scenarios that happen when the sensor is started. For this, we will 
       fireAlarm.startPolling();
     });
 
-    afterEach(function(){
+    afterEach(() => {
       global.setInterval.restore();
     });
 
-    it('should creates polling', function(){
+    it('should creates polling', () => {
       global.setInterval.calledOnce.should.be.true;
     });
   });
@@ -596,9 +597,9 @@ In this scenario we use the `stub` to simulate the return of the sensor with a v
 
 ```javascript
     ...
-    describe('When the temperature is up to the limit', function(){
+    describe('When the temperature is up to the limit', () => {
 
-      beforeEach(function() {
+      beforeEach(() => {
         clock = this.sandbox.useFakeTimers();
 
         this.sandbox.stub(fireAlarm, 'temperatureSensor', {
@@ -608,15 +609,15 @@ In this scenario we use the `stub` to simulate the return of the sensor with a v
         clock.tick(CONFIG.INTERVAL);
       });
 
-      afterEach(function(){
+      afterEach(() => {
         clock.restore();
       });
 
-      it('should trigger piezo sensor alarm', function(){
+      it('should trigger piezo sensor alarm', () => {
         this.piezoPlaySpy.calledOnce.should.be.true;
       });
 
-      it('should send the SMS to user', function() {
+      it('should send the SMS to user', () => {
         this.createMessagesSpy.calledOnce.should.be.true;
       });
 
@@ -628,37 +629,30 @@ Now we will validate the ambient temperature scenario in acceptable levels. The 
 
 ```javascript
     ...
-    describe('When the temperature is NOT up to the limit', function(){
+    describe('When the temperature is NOT up to the limit', () => {
 
-
-      beforeEach(function() {
+      beforeEach(() => {
         clock = this.sandbox.useFakeTimers();
-
 
         this.sandbox.stub(fireAlarm, 'temperatureSensor', {
           celsius: CONFIG.FIRE_ALARM.LIMIT - 1
         });
 
-
         fireAlarm.startPolling();
         clock.tick(CONFIG.INTERVAL);
       });
 
-
-      afterEach(function(){
+      afterEach(() => {
         clock.restore();
       });
 
-
-      it('should NOT trigger piezo sensor alarm', function(){
+      it('should NOT trigger piezo sensor alarm', () => {
         this.piezoPlaySpy.calledOnce.should.be.false;
       });
 
-
-      it('should NOT send the SMS to user', function() {
+      it('should NOT send the SMS to user', () => {
         this.createMessagesSpy.calledOnce.should.be.false;
       });
-
 
     });
     ...
@@ -667,18 +661,18 @@ Now we will validate the ambient temperature scenario in acceptable levels. The 
 Based on our test scenarios, this is the test content of our fire alarm file:
 
 ```javascript
-var proxyquire = require('proxyquire');
-var CONFIG = require('../src/configuration');
-var five = require('johnny-five');
-var request = require('request');
-var sinon = require('sinon');
+const proxyquire = require('proxyquire');
+const CONFIG = require('../src/configuration');
+const five = require('johnny-five');
+const request = require('request');
+const sinon = require('sinon');
 
-describe('FireAlarm', function() {
+describe('FireAlarm', () => {
 
-  beforeEach(function(){
+  beforeEach(() => {
     this.sandbox = sinon.sandbox.create();
     this.createMessagesSpy = this.sandbox.spy();
-    var restClientMessage = {
+    const restClientMessage = {
       messages: {
         create: this.createMessagesSpy
       }
@@ -690,36 +684,36 @@ describe('FireAlarm', function() {
       }
     };
 
-    var FireAlarm = proxyquire('../src/fire-alarm', {
+    const FireAlarm = proxyquire('../src/fire-alarm', {
       twilio: twilioMock
     });
     fireAlarm = new FireAlarm();
   });
 
-  afterEach(function() {
+  afterEach(() => {
     this.sandbox.restore();
   });
 
-  it('should have the termometer sensor configured', function(){
+  it('should have the termometer sensor configured', () => {
     (fireAlarm.temperatureSensor instanceof five.Thermometer).should.be.equal(true);
   });
 
-  describe('#stopPolling', function(){
-    beforeEach(function(){
+  describe('#stopPolling', () => {
+    beforeEach(() => {
       this.sandbox.spy(global, 'clearInterval');
       fireAlarm.stopPolling();
     });
 
-    it('should remove interval', function(){
+    it('should remove interval', () => {
       global.clearInterval.calledOnce.should.be.true;
     });
   });
 
-  describe('#startPolling', function(){
-    beforeEach(function(){
+  describe('#startPolling', () => {
+    beforeEach(() => {
       this.piezoPlaySpy = this.sandbox.spy();
 
-      var piezoStub = {
+      const piezoStub = {
         isPlaying: false,
         play: this.piezoPlaySpy
       };
@@ -729,17 +723,17 @@ describe('FireAlarm', function() {
       fireAlarm.startPolling();
     });
 
-    afterEach(function(){
+    afterEach(() => {
       global.setInterval.restore();
     });
 
-    it('should creates polling', function(){
+    it('should creates polling', () => {
       global.setInterval.calledOnce.should.be.true;
     });
 
-    describe('When the temperature is up to the limit', function(){
+    describe('When the temperature is up to the limit', () => {
 
-      beforeEach(function() {
+      beforeEach(() =>  {
         clock = this.sandbox.useFakeTimers();
 
         this.sandbox.stub(fireAlarm, 'temperatureSensor', {
@@ -749,23 +743,23 @@ describe('FireAlarm', function() {
         clock.tick(CONFIG.INTERVAL);
       });
 
-      afterEach(function(){
+      afterEach(() => {
         clock.restore();
       });
 
-      it('should trigger piezo sensor alarm', function(){
+      it('should trigger piezo sensor alarm', () => {
         this.piezoPlaySpy.calledOnce.should.be.true;
       });
 
-      it('should send the SMS to user', function() {
+      it('should send the SMS to user', () => {
         this.createMessagesSpy.calledOnce.should.be.true;
       });
 
     });
 
-    describe('When the temperature is NOT up to the limit', function(){
+    describe('When the temperature is NOT up to the limit', () => {
 
-      beforeEach(function() {
+      beforeEach(() => {
         clock = this.sandbox.useFakeTimers();
 
         this.sandbox.stub(fireAlarm, 'temperatureSensor', {
@@ -776,15 +770,15 @@ describe('FireAlarm', function() {
         clock.tick(CONFIG.INTERVAL);
       });
 
-      afterEach(function(){
+      afterEach(() => {
         clock.restore();
       });
 
-      it('should NOT trigger piezo sensor alarm', function(){
+      it('should NOT trigger piezo sensor alarm', () => {
         this.piezoPlaySpy.calledOnce.should.be.false;
       });
 
-      it('should NOT send the SMS to user', function() {
+      it('should NOT send the SMS to user', () => {
         this.createMessagesSpy.calledOnce.should.be.false;
       });
     });
