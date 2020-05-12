@@ -171,7 +171,7 @@ After this step we cleared the cache using the npm cache clean command for secur
 ...
 install:
   - ps: Install-Product node $env:nodejs_version
-  - npm cache clean
+  - npm cache clean --force
   - npm install
 ...
 ```
@@ -208,7 +208,7 @@ platform:
   - x64
 install:
   - ps: Install-Product node $env:nodejs_version
-  - npm cache clean
+  - npm cache clean --force
   - npm install
 test_script:
    Run the test
