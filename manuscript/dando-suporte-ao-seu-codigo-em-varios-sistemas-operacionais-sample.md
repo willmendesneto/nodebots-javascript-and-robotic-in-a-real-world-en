@@ -57,7 +57,7 @@ We will also add the `"node_js"` field, which will be our information about the 
 ```
 ...
 node_js:
-  - '5.3.0'
+  - '12.16.2'
 ...
 ```
 
@@ -93,7 +93,7 @@ os:
   - linux
   - osx
 node_js:
-  - '5.3.0'
+  - '12.16.2'
 before_script:
   - 'npm install'
 
