@@ -132,8 +132,6 @@ For our initial project we will install the Johnny-Five framework as one of the 
 $ npm install --save johnny-five
 ```
 
-![Installing the Johnny-Five Package](images/image11.png)
-
 You may notice that we now have some new files in our project folder. Firstly, the folder `node_modules` was created and inside it, we have our package installed successfully.
 
 ![Listing the folder `node_modules`](images/image22.png)
