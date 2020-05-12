@@ -57,7 +57,7 @@ We will also add the `"node_js"` field, which will be our information about the 
 ```
 ...
 node_js:
-  - '5.3.0'
+  - '12.16.2'
 ...
 ```
 
@@ -93,7 +93,7 @@ os:
   - linux
   - osx
 node_js:
-  - '5.3.0'
+  - '12.16.2'
 before_script:
   - 'npm install'
 
@@ -147,7 +147,7 @@ We will add the version of NodeJS used in the environment field of our configura
 ...
 environment:
   matrix:
-    - nodejs_version: "5.3.0"
+    - nodejs_version: "12.16.2"
 ...
 ```
 
@@ -202,7 +202,7 @@ init:
   - git config --global core.autocrlf true
 environment:
   matrix:
-    - nodejs_version: "5.3.0"
+    - nodejs_version: "12.16.2"
 platform:
   - x86
   - x64
